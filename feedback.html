@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ICT Club Uganda | Feedback</title>
+  <meta name="description" content="Send feedback, suggestions or questions to ICT Club Uganda.">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/style-patch.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+  <link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet">
+</head>
+<body>
+<!-- Page Loading Overlay -->
+<div class="page-loading" id="pageLoader">
+  <div class="page-loading-logo">ICT Club</div>
+  <div class="spinner"></div>
+  <span>Loading…</span>
+</div>
+<script>
+  window.addEventListener('load', function() {
+    var loader = document.getElementById('pageLoader');
+    if (loader) {
+      loader.classList.add('fade-out');
+      setTimeout(function(){ loader.style.display = 'none'; }, 450);
+    }
+  });
+</script>
+
+<div id="progress-bar"></div>
+<nav>
+  <div class="logo"><img src="assets/logo.png" alt="ICT Club Uganda Logo" onerror="this.style.display='none'">
+    <div class="school-logo-placeholder" title="Buhobe Secondary School">BSS</div>
+  <div class="nav-links" id="navLinks">
+    <a href="index.html">Home</a><a href="about.html">About</a><a href="lessons.html">Lessons</a>
+    <a href="projects.html">Projects</a><a href="news.html">News</a><a href="events.html">Events</a>
+    <a href="gallery.html">Gallery</a><a href="feedback.html">Feedback</a><a href="portal.html">Portal</a>
+  </div>
+  <div class="nav-actions"><button id="modeBtn" class="mode-btn">🌙 Dark</button></div>
+  <button class="hamburger" id="hamburger"><i class="fas fa-bars"></i></button>
+</nav>
+
+<section class="hero" style="min-height:50vh;">
+  <div class="hero-badge" data-aos="fade-down"><i class="fas fa-comments"></i> We Listen</div>
+  <h1 data-aos="zoom-in">Send Us <span>Feedback</span></h1>
+  <p data-aos="fade-up">Share your thoughts, suggestions, questions or report an issue. We read every message.</p>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="grid grid-2" style="align-items:flex-start; gap:3rem;">
+
+      <!-- FORM -->
+      <div data-aos="fade-right">
+        <div class="card">
+          <h3 style="margin-bottom:1.5rem;font-family:'Syne',sans-serif;font-size:1.3rem;">
+            <i class="fas fa-paper-plane text-blue"></i> Send a Message
+          </h3>
+
+          <div id="fbAlert"></div>
+
+          <div class="form-group">
+            <label for="fbName"><i class="fas fa-user"></i> Full Name *</label>
+            <input type="text" id="fbName" placeholder="Your full name" required>
+          </div>
+          <div class="form-group">
+            <label for="fbEmail"><i class="fas fa-envelope"></i> Email Address *</label>
+            <input type="email" id="fbEmail" placeholder="your@email.com" required>
+          </div>
+          <div class="form-group">
+            <label for="fbPhone"><i class="fas fa-phone"></i> Phone (Optional)</label>
+            <input type="tel" id="fbPhone" placeholder="+256 700 000 000">
+          </div>
+          <div class="form-group">
+            <label for="fbCategory"><i class="fas fa-tag"></i> Category *</label>
+            <select id="fbCategory" required>
+              <option value="">— Select category —</option>
+              <option value="general">General Enquiry</option>
+              <option value="suggestion">Suggestion</option>
+              <option value="complaint">Complaint</option>
+              <option value="technical">Technical Issue</option>
+              <option value="membership">Membership</option>
+              <option value="partnership">Partnership / Sponsorship</option>
+              <option value="other">Other</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="fbSubject"><i class="fas fa-heading"></i> Subject *</label>
+            <input type="text" id="fbSubject" placeholder="What is this about?" required>
+          </div>
+          <div class="form-group">
+            <label for="fbMessage"><i class="fas fa-comment"></i> Message *</label>
+            <textarea id="fbMessage" placeholder="Write your message here…" rows="6" required></textarea>
+          </div>
+          <div class="form-group">
+            <label style="display:flex;align-items:center;gap:.5rem;cursor:pointer;">
+              <input type="checkbox" id="fbConsent" required>
+              <span style="font-size:.85rem;color:var(--text-sub);">I agree to this message being stored and used to improve the club.</span>
+            </label>
+          </div>
+
+          <button class="btn btn-primary btn-block btn-lg" id="submitFeedback" onclick="submitFeedback()">
+            <i class="fas fa-paper-plane"></i> Send Message
+          </button>
+        </div>
+      </div>
+
+      <!-- CONTACT INFO -->
+      <div data-aos="fade-left">
+        <div class="section-eyebrow mb-2">Get in Touch</div>
+        <h2 class="section-title" style="text-align:left;margin-bottom:1rem;">Other Ways to Reach Us</h2>
+        <p style="color:var(--text-sub);margin-bottom:2rem;line-height:1.75;">
+          Have a question about joining, a lesson topic, or want to collaborate? We're always happy to hear from students, teachers and community members.
+        </p>
+
+        <div style="display:flex;flex-direction:column;gap:1rem;">
+          <div class="card" style="flex-direction:row;display:flex;align-items:center;gap:1rem;">
+            <div class="card-icon" style="flex-shrink:0;"><i class="fas fa-envelope"></i></div>
+            <div>
+              <strong style="display:block;margin-bottom:.2rem;">Email</strong>
+              <a href="mailto:info@ictclubuganda.org" style="color:var(--text-sub);font-size:.9rem;">info@ictclubuganda.org</a>
+            </div>
+          </div>
+          <div class="card" style="flex-direction:row;display:flex;align-items:center;gap:1rem;">
+            <div class="card-icon" style="background:linear-gradient(135deg,#2d7a4f,#38a169);flex-shrink:0;"><i class="fab fa-whatsapp"></i></div>
+            <div>
+              <strong style="display:block;margin-bottom:.2rem;">WhatsApp</strong>
+              <a href="https://wa.me/256700000000" style="color:var(--text-sub);font-size:.9rem;">+256 700 000 000</a>
+            </div>
+          </div>
+          <div class="card" style="flex-direction:row;display:flex;align-items:center;gap:1rem;">
+            <div class="card-icon" style="background:linear-gradient(135deg,#b7410e,#e05c1a);flex-shrink:0;"><i class="fab fa-facebook-messenger"></i></div>
+            <div>
+              <strong style="display:block;margin-bottom:.2rem;">Facebook</strong>
+              <a href="#" style="color:var(--text-sub);font-size:.9rem;">ICT Club Uganda</a>
+            </div>
+          </div>
+          <div class="card" style="flex-direction:row;display:flex;align-items:center;gap:1rem;">
+            <div class="card-icon" style="background:linear-gradient(135deg,#553c9a,#805ad5);flex-shrink:0;"><i class="fas fa-map-marker-alt"></i></div>
+            <div>
+              <strong style="display:block;margin-bottom:.2rem;">Location</strong>
+              <span style="color:var(--text-sub);font-size:.9rem;">Innovation Hub, School Compound, Uganda</span>
+            </div>
+          </div>
+          <div class="card" style="flex-direction:row;display:flex;align-items:center;gap:1rem;">
+            <div class="card-icon" style="background:linear-gradient(135deg,#d69e2e,#f0b429);flex-shrink:0;"><i class="fas fa-clock"></i></div>
+            <div>
+              <strong style="display:block;margin-bottom:.2rem;">Meeting Hours</strong>
+              <span style="color:var(--text-sub);font-size:.9rem;">Monday – Friday: 3:00 PM – 5:00 PM<br>Saturday: 9:00 AM – 1:00 PM</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- FAQ -->
+        <div class="mt-3">
+          <h3 style="font-family:'Syne',sans-serif;margin-bottom:1rem;">Frequently Asked Questions</h3>
+          <div style="display:flex;flex-direction:column;gap:.75rem;">
+            <details style="background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:1rem;">
+              <summary style="cursor:pointer;font-weight:600;color:var(--text);">How do I join ICT Club Uganda?</summary>
+              <p style="color:var(--text-sub);margin-top:.75rem;font-size:.9rem;">Register through the <a href="portal.html">Student Portal</a>. You'll need a school email address. Membership is free for all enrolled students.</p>
+            </details>
+            <details style="background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:1rem;">
+              <summary style="cursor:pointer;font-weight:600;color:var(--text);">Do I need prior experience?</summary>
+              <p style="color:var(--text-sub);margin-top:.75rem;font-size:.9rem;">No! We welcome complete beginners. Our lessons are designed to take you from zero knowledge to building real projects.</p>
+            </details>
+            <details style="background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:1rem;">
+              <summary style="cursor:pointer;font-weight:600;color:var(--text);">Are lessons free for members?</summary>
+              <p style="color:var(--text-sub);margin-top:.75rem;font-size:.9rem;">Yes, all lessons, workshops and resources on this platform are free for registered ICT Club Uganda members.</p>
+            </details>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="logo"><img src="assets/logo.png" alt="ICT Club" onerror="this.style.display='none'">
+    <div class="school-logo-placeholder" title="Buhobe Secondary School">BSS</div>
+    <div class="school-logo-placeholder" title="Buhobe Secondary School">BSS</div> ICT Club Uganda</div>
+        <p>Empowering the next generation through technology education.</p>
+        <div class="footer-social">
+          <a href="#"><i class="fab fa-facebook-f"></i></a><a href="#"><i class="fab fa-instagram"></i></a>
+          <a href="#"><i class="fab fa-youtube"></i></a><a href="#"><i class="fab fa-twitter"></i></a>
+        </div>
+      </div>
+      <div><h4>Quick Links</h4><ul><li><a href="index.html">Home</a></li><li><a href="about.html">About</a></li><li><a href="lessons.html">Lessons</a></li><li><a href="projects.html">Projects</a></li></ul></div>
+      <div><h4>Resources</h4><ul><li><a href="news.html">News</a></li><li><a href="events.html">Events</a></li><li><a href="portal.html">Portal</a></li><li><a href="gallery.html">Gallery</a></li></ul></div>
+      <div><h4>Contact</h4><ul><li><a href="mailto:info@ictclubuganda.org"><i class="fas fa-envelope"></i> info@ictclubuganda.org</a></li><li><a href="#"><i class="fas fa-map-marker-alt"></i> Uganda</a></li></ul></div>
+    </div>
+    <div class="footer-bottom"><p>© 2026 ICT Club Uganda. All Rights Reserved.</p><p>Built with ❤️ by ICT Club Members</p></div>
+  </div>
+</footer>
+
+<button id="scrollTopBtn" aria-label="Scroll to top"><i class="fas fa-chevron-up"></i></button>
+
+<script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+<script src="js/script.js"></script>
+<script type="module">
+  import { db, ref, push, set } from './js/firebase.js';
+
+  window.submitFeedback = async function(){
+    const name     = document.getElementById('fbName').value.trim();
+    const email    = document.getElementById('fbEmail').value.trim();
+    const phone    = document.getElementById('fbPhone').value.trim();
+    const category = document.getElementById('fbCategory').value;
+    const subject  = document.getElementById('fbSubject').value.trim();
+    const message  = document.getElementById('fbMessage').value.trim();
+    const consent  = document.getElementById('fbConsent').checked;
+    const alertEl  = document.getElementById('fbAlert');
+    const btn      = document.getElementById('submitFeedback');
+
+    alertEl.innerHTML = '';
+
+    if(!name||!email||!category||!subject||!message){
+      alertEl.innerHTML=`<div class="alert alert-error"><i class="fas fa-exclamation-circle"></i> Please fill in all required fields.</div>`;
+      return;
+    }
+    if(!/\S+@\S+\.\S+/.test(email)){
+      alertEl.innerHTML=`<div class="alert alert-error"><i class="fas fa-exclamation-circle"></i> Please enter a valid email address.</div>`;
+      return;
+    }
+    if(!consent){
+      alertEl.innerHTML=`<div class="alert alert-error"><i class="fas fa-exclamation-circle"></i> Please tick the consent checkbox.</div>`;
+      return;
+    }
+
+    btn.disabled=true;
+    btn.innerHTML='<i class="fas fa-spinner fa-spin"></i> Sending…';
+
+    try {
+      const fbRef = ref(db, 'feedback');
+      const newRef = push(fbRef);
+      await set(newRef, { name, email, phone, category, subject, message, createdAt: Date.now(), status: 'unread' });
+
+      alertEl.innerHTML=`<div class="alert alert-success"><i class="fas fa-check-circle"></i> Message sent successfully! We'll get back to you soon.</div>`;
+      ['fbName','fbEmail','fbPhone','fbSubject','fbMessage'].forEach(id=>{ document.getElementById(id).value=''; });
+      document.getElementById('fbCategory').value='';
+      document.getElementById('fbConsent').checked=false;
+      showToast('Feedback submitted! Thank you.','success');
+    } catch(err) {
+      console.error(err);
+      alertEl.innerHTML=`<div class="alert alert-error"><i class="fas fa-exclamation-circle"></i> Failed to send message. Please try again or contact us directly.</div>`;
+      showToast('Failed to send. Please try again.','error');
+    } finally {
+      btn.disabled=false;
+      btn.innerHTML='<i class="fas fa-paper-plane"></i> Send Message';
+    }
+  };
+</script>
+</body>
+</html>

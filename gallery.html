@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ICT Club Uganda | Gallery</title>
+  <meta name="description" content="Photo gallery of ICT Club Uganda activities, workshops, projects and events.">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/style-patch.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+  <link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet">
+  <style>
+    .gallery-masonry {
+      columns: 3;
+      column-gap: 1rem;
+    }
+    .gallery-masonry .gallery-item {
+      break-inside: avoid;
+      margin-bottom: 1rem;
+      aspect-ratio: unset;
+      height: auto;
+    }
+    .gallery-masonry .gallery-item img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+    @media(max-width:768px){ .gallery-masonry{columns:2;} }
+    @media(max-width:480px){ .gallery-masonry{columns:1;} }
+  </style>
+</head>
+<body>
+<!-- Page Loading Overlay -->
+<div class="page-loading" id="pageLoader">
+  <div class="page-loading-logo">ICT Club</div>
+  <div class="spinner"></div>
+  <span>Loading…</span>
+</div>
+<script>
+  window.addEventListener('load', function() {
+    var loader = document.getElementById('pageLoader');
+    if (loader) {
+      loader.classList.add('fade-out');
+      setTimeout(function(){ loader.style.display = 'none'; }, 450);
+    }
+  });
+</script>
+
+<div id="progress-bar"></div>
+<nav>
+  <div class="logo"><img src="assets/logo.png" alt="ICT Club Uganda Logo" onerror="this.style.display='none'">
+    <div class="school-logo-placeholder" title="Buhobe Secondary School">BSS</div>
+  <div class="nav-links" id="navLinks">
+    <a href="index.html">Home</a><a href="about.html">About</a><a href="lessons.html">Lessons</a>
+    <a href="projects.html">Projects</a><a href="news.html">News</a><a href="events.html">Events</a>
+    <a href="gallery.html">Gallery</a><a href="feedback.html">Feedback</a><a href="portal.html">Portal</a>
+  </div>
+  <div class="nav-actions"><button id="modeBtn" class="mode-btn">🌙 Dark</button></div>
+  <button class="hamburger" id="hamburger"><i class="fas fa-bars"></i></button>
+</nav>
+
+<section class="hero" style="min-height:50vh;">
+  <div class="hero-badge" data-aos="fade-down"><i class="fas fa-images"></i> Visual Story</div>
+  <h1 data-aos="zoom-in">Photo <span>Gallery</span></h1>
+  <p data-aos="fade-up">Moments from our workshops, projects, events and community activities.</p>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="flex flex-between flex-wrap gap-2 mb-3" data-aos="fade-up">
+      <div class="tab-bar" id="galleryTabs">
+        <button class="tab-btn active" data-gtag="all">All Photos</button>
+        <button class="tab-btn" data-gtag="workshop">Workshops</button>
+        <button class="tab-btn" data-gtag="project">Projects</button>
+        <button class="tab-btn" data-gtag="event">Events</button>
+        <button class="tab-btn" data-gtag="team">Team</button>
+      </div>
+      <span id="photoCount" style="color:var(--text-sub);font-size:.88rem;align-self:center;"></span>
+    </div>
+
+    <div class="gallery-masonry" id="galleryGrid">
+      <div class="loading-wrap" style="column-span:all;"><div class="spinner"></div><p>Loading gallery…</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- Lightbox -->
+<div id="lightbox" class="lightbox" role="dialog" aria-modal="true" aria-label="Image viewer">
+  <button class="lightbox-close" id="lbClose" aria-label="Close"><i class="fas fa-times"></i></button>
+  <div style="text-align:center;">
+    <img id="lightboxImg" src="" alt="Gallery image" style="max-width:90vw;max-height:80vh;border-radius:12px;box-shadow:0 20px 60px rgba(0,0,0,.6);">
+    <p id="lightboxCaption" style="color:rgba(255,255,255,.8);margin-top:.75rem;font-size:.9rem;"></p>
+  </div>
+</div>
+
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="logo"><img src="assets/logo.png" alt="ICT Club" onerror="this.style.display='none'">
+    <div class="school-logo-placeholder" title="Buhobe Secondary School">BSS</div>
+    <div class="school-logo-placeholder" title="Buhobe Secondary School">BSS</div> ICT Club Uganda</div>
+        <p>Empowering the next generation through technology education.</p>
+        <div class="footer-social">
+          <a href="#"><i class="fab fa-facebook-f"></i></a><a href="#"><i class="fab fa-instagram"></i></a>
+          <a href="#"><i class="fab fa-youtube"></i></a><a href="#"><i class="fab fa-twitter"></i></a>
+        </div>
+      </div>
+      <div><h4>Quick Links</h4><ul><li><a href="index.html">Home</a></li><li><a href="gallery.html">Gallery</a></li><li><a href="events.html">Events</a></li><li><a href="about.html">About</a></li></ul></div>
+      <div><h4>Resources</h4><ul><li><a href="lessons.html">Lessons</a></li><li><a href="projects.html">Projects</a></li><li><a href="portal.html">Portal</a></li><li><a href="feedback.html">Feedback</a></li></ul></div>
+      <div><h4>Contact</h4><ul><li><a href="mailto:info@ictclubuganda.org"><i class="fas fa-envelope"></i> info@ictclubuganda.org</a></li><li><a href="#"><i class="fas fa-map-marker-alt"></i> Uganda</a></li></ul></div>
+    </div>
+    <div class="footer-bottom"><p>© 2026 ICT Club Uganda. All Rights Reserved.</p><p>Built with ❤️ by ICT Club Members</p></div>
+  </div>
+</footer>
+
+<button id="scrollTopBtn" aria-label="Scroll to top"><i class="fas fa-chevron-up"></i></button>
+
+<script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+<script src="js/script.js"></script>
+<script type="module">
+  import { db, ref, onValue } from './js/firebase.js';
+
+  const grid    = document.getElementById('galleryGrid');
+  const tabs    = document.querySelectorAll('[data-gtag]');
+  const counter = document.getElementById('photoCount');
+  const lb      = document.getElementById('lightbox');
+  const lbImg   = document.getElementById('lightboxImg');
+  const lbCap   = document.getElementById('lightboxCaption');
+  const lbClose = document.getElementById('lbClose');
+
+  let allImages=[], activeFilter='all';
+
+  // Lightbox controls
+  function openLB(src, caption){
+    lbImg.src=src; lbCap.textContent=caption||'';
+    lb.classList.add('open');
+    document.body.style.overflow='hidden';
+  }
+  function closeLB(){ lb.classList.remove('open'); document.body.style.overflow=''; lbImg.src=''; }
+  lbClose.addEventListener('click', closeLB);
+  lb.addEventListener('click', e=>{ if(e.target===lb||e.target.id==='lightbox') closeLB(); });
+  document.addEventListener('keydown', e=>{ if(e.key==='Escape') closeLB(); });
+
+  // Placeholder SVG for demo images
+  const COLORS=['%231a3a8f','%232d7a4f','%23b7410e','%23553c9a','%23d53f8c','%23d69e2e'];
+  const EMOJIS=['📸','🖥️','🤖','🏆','💡','🎨','🌐','⚡','🔬'];
+  function placeholderSVG(i){
+    const c=COLORS[i%COLORS.length], e=EMOJIS[i%EMOJIS.length];
+    return `data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='300' viewBox='0 0 400 300'%3E%3Crect width='400' height='300' fill='${c}' rx='8'/%3E%3Ctext x='200' y='165' text-anchor='middle' font-size='60' font-family='sans-serif'%3E${e}%3C/text%3E%3C/svg%3E`;
+  }
+
+  function renderGallery(images){
+    counter.textContent = `${images.length} photo${images.length!==1?'s':''}`;
+    if(!images.length){
+      grid.innerHTML=`<div class="empty-state" style="grid-column:1/-1;"><i class="fas fa-images"></i><h4>No photos yet</h4><p>Gallery images will appear here when added.</p></div>`;
+      return;
+    }
+    grid.innerHTML = images.map((img, i) => `
+      <div class="gallery-item" data-aos="zoom-in" data-aos-delay="${(i%6)*40}"
+           onclick="openImage('${img.id}')" title="${escHtml(img.caption||img.title||'')}">
+        <img src="${img.url || placeholderSVG(i)}"
+             alt="${escHtml(img.caption||img.title||'ICT Club Photo')}"
+             loading="lazy"
+             onerror="this.src='${placeholderSVG(i)}'">
+        <div class="overlay">
+          <span><i class="fas fa-expand-alt"></i> ${escHtml(img.caption||img.title||'View')}</span>
+        </div>
+      </div>`
+    ).join('');
+    if(typeof AOS!=='undefined') AOS.refresh();
+  }
+
+  function applyFilter(){
+    const filtered = activeFilter==='all'
+      ? allImages
+      : allImages.filter(img=>img.tag===activeFilter);
+    renderGallery(filtered);
+  }
+
+  tabs.forEach(btn=>{
+    btn.addEventListener('click',()=>{
+      tabs.forEach(b=>b.classList.remove('active'));
+      btn.classList.add('active');
+      activeFilter=btn.dataset.gtag;
+      applyFilter();
+    });
+  });
+
+  window.openImage = function(id){
+    const img = allImages.find(x=>x.id===id);
+    if(!img) return;
+    const idx = allImages.indexOf(img);
+    openLB(img.url||placeholderSVG(idx), img.caption||img.title||'');
+  };
+
+  function escHtml(s){ return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+
+  // Fallback demo gallery
+  const fallbackImages = Array.from({length:12},(_, i)=>({
+    id:String(i+1),
+    title:`Club Photo ${i+1}`,
+    caption: ['Programming Workshop Session','Robotics Team Building','ICT Exhibition Display','Code Review Meeting','Students at Computers','Club Award Ceremony','Python Lesson in Progress','Circuit Building Practice','Annual ICT Exhibition','Robotics Demo Day','Web Design Workshop','Team Photo 2026'][i],
+    tag:['workshop','project','event','meeting','workshop','event','workshop','project','event','project','workshop','team'][i],
+    createdAt:Date.now()-i*86400000
+  }));
+
+  try{
+    const galleryRef=ref(db,'gallery');
+    onValue(galleryRef,(snapshot)=>{
+      const data=snapshot.val();
+      if(data){ allImages=Object.entries(data).map(([k,v])=>({...v,id:k})).sort((a,b)=>(b.createdAt||0)-(a.createdAt||0)); }
+      else{ allImages=fallbackImages; }
+      applyFilter();
+    },()=>{ allImages=fallbackImages; applyFilter(); });
+  }catch(e){ allImages=fallbackImages; applyFilter(); }
+</script>
+</body>
+</html>

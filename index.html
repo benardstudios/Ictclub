@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ICT Club Uganda | Home</title>
+  <meta name="description" content="ICT Club Uganda — ICT Literate, Financially Stronger. Empowering students with modern technology, programming, and digital skills.">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/style-patch.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+  <link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet">
+</head>
+<body>
+<!-- Page Loading Overlay -->
+<div class="page-loading" id="pageLoader">
+  <div class="page-loading-logo">ICT Club</div>
+  <div class="spinner"></div>
+  <span>Loading…</span>
+</div>
+<script>
+  window.addEventListener('load', function() {
+    var loader = document.getElementById('pageLoader');
+    if (loader) {
+      loader.classList.add('fade-out');
+      setTimeout(function(){ loader.style.display = 'none'; }, 450);
+    }
+  });
+</script>
+
+
+<!-- Progress Bar -->
+<div id="progress-bar"></div>
+
+<!-- Announcement Banner -->
+<div class="announcement-bar">
+  🎉 Registration for the 2026 ICT Coding Bootcamp is now open!
+  <a href="portal.html">Register here →</a>
+</div>
+
+<!-- NAV -->
+<nav>
+  <div class="logo">
+    <img src="assets/logo.png" alt="ICT Club Uganda Logo" onerror="this.style.display='none'">
+    <div class="school-logo-placeholder" title="Buhobe Secondary School">BSS</div>
+    ICT Club Uganda
+  </div>
+  <div class="nav-links" id="navLinks">
+    <a href="index.html">Home</a>
+    <a href="about.html">About</a>
+    <a href="lessons.html">Lessons</a>
+    <a href="projects.html">Projects</a>
+    <a href="news.html">News</a>
+    <a href="events.html">Events</a>
+    <a href="gallery.html">Gallery</a>
+    <a href="feedback.html">Feedback</a>
+    <a href="portal.html">Portal</a>
+  </div>
+  <div class="nav-actions">
+    <button id="modeBtn" class="mode-btn">🌙 Dark</button>
+  </div>
+  <button class="hamburger" id="hamburger"><i class="fas fa-bars"></i></button>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <img src="assets/logo.png" alt="ICT Club Uganda" class="hero-logo" id="heroLogoImg" onerror="this.style.display='none';document.getElementById('heroLogoFallback').style.display='flex'">
+  <div class="hero-school-logo" id="heroLogoFallback" style="display:none;" title="Buhobe Secondary School">
+    BSS<br><span style="font-size:0.6rem;font-weight:400;">Buhobe</span>
+  </div>
+  <div class="hero-badge" data-aos="fade-down">
+    <i class="fas fa-star"></i> Est. 2026 · Uganda
+  </div>
+  <h1 data-aos="zoom-in">
+    ICT Literate,<br><span>Financially Stronger</span>
+  </h1>
+  <p data-aos="fade-up" data-aos-delay="100">
+    Empowering students with modern technology, programming, robotics,
+    innovation and digital skills for a better future.
+  </p>
+  <div class="hero-cta" data-aos="fade-up" data-aos-delay="200">
+    <a href="portal.html" class="btn btn-gold">
+      <i class="fas fa-user-plus"></i> Join the Club
+    </a>
+    <a href="about.html" class="btn btn-secondary">
+      <i class="fas fa-info-circle"></i> Learn More
+    </a>
+  </div>
+</section>
+
+<!-- STATS -->
+<section class="section section-sm" style="background: var(--surface); border-top: 1px solid var(--border);">
+  <div class="container">
+    <div class="stats-strip">
+      <div class="stat-box" data-aos="fade-up">
+        <span class="counter" data-target="250">0</span>
+        <p>Active Members</p>
+      </div>
+      <div class="stat-box" data-aos="fade-up" data-aos-delay="60">
+        <span class="counter" data-target="45">0</span>
+        <p>Projects Built</p>
+      </div>
+      <div class="stat-box" data-aos="fade-up" data-aos-delay="120">
+        <span class="counter" data-target="120">0</span>
+        <p>Certificates Issued</p>
+      </div>
+      <div class="stat-box" data-aos="fade-up" data-aos-delay="180">
+        <span class="counter" data-target="30">0</span>
+        <p>Workshops Held</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WHAT WE OFFER -->
+<section class="section">
+  <div class="container">
+    <div class="section-header" data-aos="fade-up">
+      <span class="section-eyebrow">Our Programmes</span>
+      <h2 class="section-title">What We Offer</h2>
+      <p class="section-sub">Hands-on learning experiences that prepare students for the digital world.</p>
+    </div>
+    <div class="grid grid-auto" id="offersGrid">
+      <div class="card" data-aos="fade-up">
+        <div class="card-icon"><i class="fas fa-code"></i></div>
+        <h3>Programming</h3>
+        <p>Learn HTML, CSS, JavaScript, Python and software development through project-based lessons.</p>
+      </div>
+      <div class="card" data-aos="fade-up" data-aos-delay="60">
+        <div class="card-icon" style="background: linear-gradient(135deg,#2d7a4f,#38a169)"><i class="fas fa-robot"></i></div>
+        <h3>Robotics</h3>
+        <p>Build robots, electronic systems and automation projects using Arduino and Raspberry Pi.</p>
+      </div>
+      <div class="card" data-aos="fade-up" data-aos-delay="120">
+        <div class="card-icon" style="background: linear-gradient(135deg,#b7410e,#e05c1a)"><i class="fas fa-network-wired"></i></div>
+        <h3>Networking</h3>
+        <p>Understand computer networks, infrastructure, and how the internet works.</p>
+      </div>
+      <div class="card" data-aos="fade-up" data-aos-delay="180">
+        <div class="card-icon" style="background: linear-gradient(135deg,#553c9a,#805ad5)"><i class="fas fa-shield-alt"></i></div>
+        <h3>Cybersecurity</h3>
+        <p>Protect digital systems and learn best practices for online safety and security.</p>
+      </div>
+      <div class="card" data-aos="fade-up" data-aos-delay="240">
+        <div class="card-icon" style="background: linear-gradient(135deg,#d53f8c,#ed64a6)"><i class="fas fa-paint-brush"></i></div>
+        <h3>Graphic Design</h3>
+        <p>Create digital artwork, logos, posters and visual content using modern design tools.</p>
+      </div>
+      <div class="card" data-aos="fade-up" data-aos-delay="300">
+        <div class="card-icon" style="background: linear-gradient(135deg,#d69e2e,#f0b429)"><i class="fas fa-lightbulb"></i></div>
+        <h3>Innovation Lab</h3>
+        <p>Create solutions to real-world Ugandan problems through technology and entrepreneurship.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURED PROJECTS from Firebase -->
+<section class="section" style="background: var(--surface);">
+  <div class="container">
+    <div class="section-header" data-aos="fade-up">
+      <span class="section-eyebrow">Student Work</span>
+      <h2 class="section-title">Featured Projects</h2>
+      <p class="section-sub">Real solutions built by our members.</p>
+    </div>
+    <div class="grid grid-auto" id="featuredProjects">
+      <!-- Loaded from Firebase -->
+      <div class="card" data-aos="fade-up">
+        <h3>🌐 School Website</h3>
+        <p>A modern school information management website with responsive design.</p>
+        <div class="tech-tags">
+          <span class="tech-tag">HTML</span><span class="tech-tag">CSS</span><span class="tech-tag">JavaScript</span>
+        </div>
+      </div>
+      <div class="card" data-aos="fade-up" data-aos-delay="60">
+        <h3>📋 Attendance System</h3>
+        <p>Automated student attendance tracking with Firebase backend.</p>
+        <div class="tech-tags">
+          <span class="tech-tag">Python</span><span class="tech-tag">Firebase</span>
+        </div>
+      </div>
+      <div class="card" data-aos="fade-up" data-aos-delay="120">
+        <h3>🌱 Smart Irrigation</h3>
+        <p>IoT-based agricultural monitoring and irrigation control system.</p>
+        <div class="tech-tags">
+          <span class="tech-tag">Arduino</span><span class="tech-tag">IoT</span>
+        </div>
+      </div>
+    </div>
+    <div class="text-center mt-3">
+      <a href="projects.html" class="btn btn-outline">View All Projects <i class="fas fa-arrow-right"></i></a>
+    </div>
+  </div>
+</section>
+
+<!-- LATEST NEWS (static previews, links to news page) -->
+<section class="section">
+  <div class="container">
+    <div class="section-header" data-aos="fade-up">
+      <span class="section-eyebrow">Stay Informed</span>
+      <h2 class="section-title">Latest News</h2>
+    </div>
+    <div class="grid grid-3" id="homeNews">
+      <div class="card news-card" data-aos="fade-up">
+        <div class="card-meta">
+          <span class="tag">Announcement</span>
+          <span>June 2026</span>
+        </div>
+        <h3>New Robotics Equipment Arrives</h3>
+        <p>Modern robotics kits including Arduino Mega boards have been delivered to the Innovation Lab.</p>
+      </div>
+      <div class="card news-card" data-aos="fade-up" data-aos-delay="60">
+        <div class="card-meta">
+          <span class="tag">Workshop</span>
+          <span>May 2026</span>
+        </div>
+        <h3>Python Bootcamp Opens Registration</h3>
+        <p>All students are welcome to register for the intensive Python programming bootcamp.</p>
+      </div>
+      <div class="card news-card" data-aos="fade-up" data-aos-delay="120">
+        <div class="card-meta">
+          <span class="tag">Achievement</span>
+          <span>April 2026</span>
+        </div>
+        <h3>ICT Club Wins District Award</h3>
+        <p>Our club took first place in the 2026 District Technology Innovation Challenge.</p>
+      </div>
+    </div>
+    <div class="text-center mt-3">
+      <a href="news.html" class="btn btn-outline">All News <i class="fas fa-arrow-right"></i></a>
+    </div>
+  </div>
+</section>
+
+<!-- UPCOMING EVENTS -->
+<section class="section" style="background: var(--surface);">
+  <div class="container">
+    <div class="section-header" data-aos="fade-up">
+      <span class="section-eyebrow">What's Coming</span>
+      <h2 class="section-title">Upcoming Events</h2>
+    </div>
+    <div class="grid grid-3" id="homeEvents">
+      <div class="card event-card" data-aos="fade-up">
+        <div class="event-date"><span class="day">15</span><span class="month">Jun</span></div>
+        <h3>Programming Workshop</h3>
+        <p>Learn JavaScript fundamentals through hands-on exercises.</p>
+        <span class="badge badge-blue"><i class="fas fa-map-marker-alt"></i> Computer Lab</span>
+      </div>
+      <div class="card event-card" data-aos="fade-up" data-aos-delay="60">
+        <div class="event-date"><span class="day">22</span><span class="month">Jun</span></div>
+        <h3>Robotics Training</h3>
+        <p>Hands-on Arduino programming and circuit building session.</p>
+        <span class="badge badge-green"><i class="fas fa-map-marker-alt"></i> Innovation Hub</span>
+      </div>
+      <div class="card event-card" data-aos="fade-up" data-aos-delay="120">
+        <div class="event-date"><span class="day">30</span><span class="month">Jun</span></div>
+        <h3>Annual ICT Exhibition</h3>
+        <p>Students showcase their technology projects to the school community.</p>
+        <span class="badge badge-gold"><i class="fas fa-map-marker-alt"></i> Main Hall</span>
+      </div>
+    </div>
+    <div class="text-center mt-3">
+      <a href="events.html" class="btn btn-outline">All Events <i class="fas fa-arrow-right"></i></a>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="section">
+  <div class="container">
+    <div class="section-header" data-aos="fade-up">
+      <span class="section-eyebrow">What They Say</span>
+      <h2 class="section-title">Member Testimonials</h2>
+    </div>
+    <div class="grid grid-3">
+      <div class="card" data-aos="fade-up" style="border-left: 3px solid var(--gold);">
+        <p style="font-style:italic; color:var(--text-sub);">"ICT Club helped me develop programming skills that I now use to build websites for businesses in my community."</p>
+        <div class="flex" style="gap:.6rem; align-items:center; margin-top:1rem;">
+          <div class="card-icon" style="width:38px;height:38px;border-radius:50%;font-size:1rem;flex-shrink:0;"><i class="fas fa-user"></i></div>
+          <div><strong style="font-size:.9rem;">Senior 4 Student</strong><br><span style="font-size:.78rem;color:var(--text-light);">Programming Track</span></div>
+        </div>
+      </div>
+      <div class="card" data-aos="fade-up" data-aos-delay="60" style="border-left: 3px solid var(--blue-bright);">
+        <p style="font-style:italic; color:var(--text-sub);">"The robotics programme completely changed how I approach problem-solving. The hands-on experience is priceless."</p>
+        <div class="flex" style="gap:.6rem; align-items:center; margin-top:1rem;">
+          <div class="card-icon" style="width:38px;height:38px;border-radius:50%;font-size:1rem;flex-shrink:0;"><i class="fas fa-user"></i></div>
+          <div><strong style="font-size:.9rem;">Club Member</strong><br><span style="font-size:.78rem;color:var(--text-light);">Robotics Track</span></div>
+        </div>
+      </div>
+      <div class="card" data-aos="fade-up" data-aos-delay="120" style="border-left: 3px solid var(--green-leaf);">
+        <p style="font-style:italic; color:var(--text-sub);">"A great platform for learning modern technology. The students here are building solutions that matter for Uganda."</p>
+        <div class="flex" style="gap:.6rem; align-items:center; margin-top:1rem;">
+          <div class="card-icon" style="width:38px;height:38px;border-radius:50%;font-size:1rem;flex-shrink:0;background:linear-gradient(135deg,#2d7a4f,#38a169)"><i class="fas fa-chalkboard-teacher"></i></div>
+          <div><strong style="font-size:.9rem;">Club Patron</strong><br><span style="font-size:.78rem;color:var(--text-light);">Faculty Advisor</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA BANNER -->
+<section class="section section-sm">
+  <div class="container">
+    <div class="cta-banner" data-aos="zoom-in">
+      <h2>Ready to Join ICT Club Uganda?</h2>
+      <p>Become part of a community of innovators, programmers, designers and future leaders. Shape your digital future today.</p>
+      <div class="flex flex-center gap-2 flex-wrap">
+        <a href="portal.html" class="btn btn-gold btn-lg">
+          <i class="fas fa-user-plus"></i> Register Today
+        </a>
+        <a href="feedback.html" class="btn btn-secondary btn-lg">
+          <i class="fas fa-envelope"></i> Contact Us
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="logo">
+          <img src="assets/logo.png" alt="ICT Club" onerror="this.style.display='none'">
+    <div class="school-logo-placeholder" title="Buhobe Secondary School">BSS</div>
+          ICT Club Uganda
+        </div>
+        <p>Empowering the next generation of Ugandan innovators, programmers and digital leaders through technology education.</p>
+        <div class="footer-social">
+          <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+          <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+          <a href="#" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+          <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+          <a href="#" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+        </div>
+      </div>
+      <div>
+        <h4>Quick Links</h4>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="about.html">About Us</a></li>
+          <li><a href="lessons.html">Lessons</a></li>
+          <li><a href="projects.html">Projects</a></li>
+          <li><a href="gallery.html">Gallery</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Resources</h4>
+        <ul>
+          <li><a href="news.html">News</a></li>
+          <li><a href="events.html">Events</a></li>
+          <li><a href="feedback.html">Feedback</a></li>
+          <li><a href="portal.html">Student Portal</a></li>
+          <li><a href="admin.html">Admin</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Contact</h4>
+        <ul>
+          <li><a href="mailto:info@ictclubuganda.org"><i class="fas fa-envelope"></i> info@ictclubuganda.org</a></li>
+          <li><a href="#"><i class="fas fa-map-marker-alt"></i> Uganda</a></li>
+          <li><a href="#"><i class="fas fa-phone"></i> +256 700 000 000</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2026 ICT Club Uganda. All Rights Reserved.</p>
+      <p>Built with ❤️ by ICT Club Members</p>
+    </div>
+  </div>
+</footer>
+
+<button id="scrollTopBtn" aria-label="Scroll to top"><i class="fas fa-chevron-up"></i></button>
+
+<script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+<script src="js/script.js"></script>
+</body>
+</html>

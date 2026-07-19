@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ICT Club Uganda | Admin Dashboard</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/style-patch.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+  <style>
+    body { font-size: 15px; }
+    .admin-layout { display: none; }
+    #adminLogin  { min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 2rem; background: var(--bg); }
+  </style>
+</head>
+<body>
+
+<!-- Page Loading Overlay (hidden once auth check completes) -->
+<div class="page-loading" id="pageLoader">
+  <div class="page-loading-logo">ICT Club Admin</div>
+  <div class="spinner"></div>
+  <span>Checking access…</span>
+</div>
+
+<div id="adminLogin">
+  <div class="auth-card" style="max-width:420px;">
+    <div class="auth-logo">
+      <img src="assets/logo.png" alt="ICT Club Uganda" onerror="this.style.display='none'">
+      <h2>Admin Dashboard</h2>
+      <p>ICT Club Uganda · Authorised Access Only</p>
+    </div>
+    <div id="loginAlert"></div>
+    <div class="form-group">
+      <label><i class="fas fa-envelope"></i> Admin Email</label>
+      <input type="email" id="adminEmail" placeholder="admin@ictclubuganda.org" onkeydown="if(event.key==='Enter')adminLogin()">
+    </div>
+    <div class="form-group">
+      <label><i class="fas fa-lock"></i> Password</label>
+      <input type="password" id="adminPwd" placeholder="Admin password" onkeydown="if(event.key==='Enter')adminLogin()">
+    </div>
+    <button class="btn btn-primary btn-block btn-lg" onclick="adminLogin()">
+      <i class="fas fa-sign-in-alt"></i> Sign In
+    </button>
+    <p style="text-align:center;margin-top:1.25rem;font-size:.82rem;color:var(--text-sub);">
+      <i class="fas fa-shield-alt"></i> Access restricted to authorised administrators only.<br>
+      <a href="index.html" style="color:var(--blue-bright);">← Return to main site</a>
+    </p>
+  </div>
+</div>
+
+<!-- ========= ADMIN APP ========= -->
+<div id="adminApp" class="admin-layout" style="min-height:100vh;">
+
+  <!-- SIDEBAR -->
+  <aside class="admin-sidebar">
+    <div style="padding:1.25rem 1.5rem 1rem;border-bottom:1px solid var(--border);margin-bottom:.5rem;">
+      <div class="logo" style="font-size:1rem;"><img src="assets/logo.png" alt="" onerror="this.style.display='none'" style="width:28px;height:28px;border-radius:50%;"> ICT Club Admin</div>
+      <p style="font-size:.72rem;color:var(--text-light);margin-top:.3rem;" id="adminUserEmail"></p>
+    </div>
+
+    <h3>Overview</h3>
+    <a data-section="dashboard" onclick="showSection('dashboard')"><i class="fas fa-tachometer-alt"></i> Dashboard</a>
+
+    <h3>Content</h3>
+    <a data-section="lessons"  onclick="showSection('lessons')"><i class="fas fa-book-open"></i> Lessons</a>
+    <a data-section="projects" onclick="showSection('projects')"><i class="fas fa-rocket"></i> Projects</a>
+    <a data-section="news"     onclick="showSection('news')"><i class="fas fa-newspaper"></i> News</a>
+    <a data-section="events"   onclick="showSection('events')"><i class="fas fa-calendar-alt"></i> Events</a>
+    <a data-section="gallery"  onclick="showSection('gallery')"><i class="fas fa-images"></i> Gallery</a>
+
+    <h3>Community</h3>
+    <a data-section="feedback" onclick="showSection('feedback')">
+      <i class="fas fa-comments"></i> Feedback
+      <span id="feedbackBadge" style="background:var(--blue-bright);color:#fff;border-radius:20px;padding:.1rem .45rem;font-size:.7rem;margin-left:auto;"></span>
+    </a>
+
+    <h3>Account</h3>
+    <a href="index.html"><i class="fas fa-external-link-alt"></i> View Site</a>
+    <button onclick="adminLogout()"><i class="fas fa-sign-out-alt"></i> Sign Out</button>
+    <div style="padding:1rem 1.5rem;">
+      <button id="modeBtn" class="mode-btn" style="width:100%;justify-content:center;">🌙 Dark</button>
+    </div>
+  </aside>
+
+  <!-- MAIN CONTENT -->
+  <main class="admin-content">
+    <div class="flex flex-between flex-wrap gap-2 mb-3">
+      <h2 id="sectionTitle" style="font-family:'Syne',sans-serif;font-size:1.4rem;color:var(--text);">Dashboard</h2>
+      <div class="flex gap-2">
+        <button class="hamburger" id="hamburger" style="display:none;"><i class="fas fa-bars"></i></button>
+      </div>
+    </div>
+
+    <!-- ===== DASHBOARD ===== -->
+    <div id="sec-dashboard" class="admin-section active">
+      <div class="dashboard-stats">
+        <div class="dash-stat"><div class="num" id="stat-lessons">0</div><p>Lessons</p></div>
+        <div class="dash-stat"><div class="num" id="stat-projects">0</div><p>Projects</p></div>
+        <div class="dash-stat"><div class="num" id="stat-news">0</div><p>News Articles</p></div>
+        <div class="dash-stat"><div class="num" id="stat-events">0</div><p>Events</p></div>
+        <div class="dash-stat"><div class="num" id="stat-gallery">0</div><p>Gallery Images</p></div>
+        <div class="dash-stat"><div class="num" id="stat-feedback">0</div><p>Feedback</p></div>
+      </div>
+
+      <div class="grid grid-2" style="align-items:start;">
+        <div class="card">
+          <h3 style="margin-bottom:1rem;"><i class="fas fa-comments text-blue"></i> Recent Feedback</h3>
+          <div id="recentFeedback"><p style="color:var(--text-sub);font-size:.9rem;">Loading…</p></div>
+        </div>
+        <div class="card">
+          <h3 style="margin-bottom:1rem;"><i class="fas fa-bolt text-gold"></i> Quick Actions</h3>
+          <div style="display:flex;flex-direction:column;gap:.6rem;">
+            <button class="btn btn-primary" onclick="showSection('lessons');openAddModal('lessons')"><i class="fas fa-plus"></i> Add Lesson</button>
+            <button class="btn btn-outline" onclick="showSection('projects');openAddModal('projects')"><i class="fas fa-plus"></i> Add Project</button>
+            <button class="btn btn-outline" onclick="showSection('news');openAddModal('news')"><i class="fas fa-plus"></i> Add News</button>
+            <button class="btn btn-outline" onclick="showSection('events');openAddModal('events')"><i class="fas fa-plus"></i> Add Event</button>
+            <button class="btn btn-outline" onclick="showSection('gallery');openAddModal('gallery')"><i class="fas fa-plus"></i> Add Gallery Image</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== LESSONS ===== -->
+    <div id="sec-lessons" class="admin-section">
+      <div class="flex flex-between mb-3">
+        <h3 style="font-family:'Syne',sans-serif;">All Lessons</h3>
+        <button class="btn btn-primary" onclick="openAddModal('lessons')"><i class="fas fa-plus"></i> Add Lesson</button>
+      </div>
+      <div class="card" style="padding:0;overflow:hidden;">
+        <table class="admin-table">
+          <thead><tr><th>Title</th><th>Category</th><th>Difficulty</th><th>Author</th><th>Added</th><th>Actions</th></tr></thead>
+          <tbody id="lessonsTbody"><tr><td colspan="6" style="text-align:center;padding:2rem;color:var(--text-sub);">Loading…</td></tr></tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- ===== PROJECTS ===== -->
+    <div id="sec-projects" class="admin-section">
+      <div class="flex flex-between mb-3">
+        <h3 style="font-family:'Syne',sans-serif;">All Projects</h3>
+        <button class="btn btn-primary" onclick="openAddModal('projects')"><i class="fas fa-plus"></i> Add Project</button>
+      </div>
+      <div class="card" style="padding:0;overflow:hidden;">
+        <table class="admin-table">
+          <thead><tr><th>Title</th><th>Category</th><th>Technologies</th><th>Team</th><th>Added</th><th>Actions</th></tr></thead>
+          <tbody id="projectsTbody"><tr><td colspan="6" style="text-align:center;padding:2rem;color:var(--text-sub);">Loading…</td></tr></tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- ===== NEWS ===== -->
+    <div id="sec-news" class="admin-section">
+      <div class="flex flex-between mb-3">
+        <h3 style="font-family:'Syne',sans-serif;">All News</h3>
+        <button class="btn btn-primary" onclick="openAddModal('news')"><i class="fas fa-plus"></i> Add Article</button>
+      </div>
+      <div class="card" style="padding:0;overflow:hidden;">
+        <table class="admin-table">
+          <thead><tr><th>Title</th><th>Tag</th><th>Author</th><th>Published</th><th>Actions</th></tr></thead>
+          <tbody id="newsTbody"><tr><td colspan="5" style="text-align:center;padding:2rem;color:var(--text-sub);">Loading…</td></tr></tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- ===== EVENTS ===== -->
+    <div id="sec-events" class="admin-section">
+      <div class="flex flex-between mb-3">
+        <h3 style="font-family:'Syne',sans-serif;">All Events</h3>
+        <button class="btn btn-primary" onclick="openAddModal('events')"><i class="fas fa-plus"></i> Add Event</button>
+      </div>
+      <div class="card" style="padding:0;overflow:hidden;">
+        <table class="admin-table">
+          <thead><tr><th>Title</th><th>Type</th><th>Date</th><th>Venue</th><th>Added</th><th>Actions</th></tr></thead>
+          <tbody id="eventsTbody"><tr><td colspan="6" style="text-align:center;padding:2rem;color:var(--text-sub);">Loading…</td></tr></tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- ===== GALLERY ===== -->
+    <div id="sec-gallery" class="admin-section">
+      <div class="flex flex-between mb-3">
+        <h3 style="font-family:'Syne',sans-serif;">Gallery Images</h3>
+        <button class="btn btn-primary" onclick="openAddModal('gallery')"><i class="fas fa-plus"></i> Add Image</button>
+      </div>
+      <div class="card" style="padding:0;overflow:hidden;">
+        <table class="admin-table">
+          <thead><tr><th>Title / Caption</th><th>Tag</th><th>URL</th><th>Added</th><th>Actions</th></tr></thead>
+          <tbody id="galleryTbody"><tr><td colspan="5" style="text-align:center;padding:2rem;color:var(--text-sub);">Loading…</td></tr></tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- ===== FEEDBACK ===== -->
+    <div id="sec-feedback" class="admin-section">
+      <div class="flex flex-between mb-3">
+        <h3 style="font-family:'Syne',sans-serif;">All Feedback</h3>
+      </div>
+      <div class="card" style="padding:0;overflow:hidden;">
+        <table class="admin-table">
+          <thead><tr><th>Name</th><th>Email</th><th>Category</th><th>Subject</th><th>Status</th><th>Date</th><th>Actions</th></tr></thead>
+          <tbody id="feedbackTbody"><tr><td colspan="7" style="text-align:center;padding:2rem;color:var(--text-sub);">Loading…</td></tr></tbody>
+        </table>
+      </div>
+    </div>
+
+  </main>
+</div>
+
+<!-- ========= MODALS ========= -->
+
+<!-- LESSON MODAL -->
+<div class="modal-overlay" id="lessonsModal">
+  <div class="modal">
+    <div class="modal-header">
+      <h3 id="lessonsModalTitle">Add Lesson</h3>
+      <button class="modal-close" onclick="closeModal('lessonsModal')"><i class="fas fa-times"></i></button>
+    </div>
+    <div class="form-group"><label>Title *</label><input type="text" id="lTitle" placeholder="Lesson title"></div>
+    <div class="grid grid-2" style="gap:.75rem;">
+      <div class="form-group"><label>Category *</label>
+        <select id="lCategory">
+          <option value="">Select…</option>
+          <option value="programming">Programming</option>
+          <option value="web">Web Development</option>
+          <option value="networking">Networking</option>
+          <option value="cybersecurity">Cybersecurity</option>
+          <option value="design">Graphic Design</option>
+          <option value="other">Other</option>
+        </select>
+      </div>
+      <div class="form-group"><label>Difficulty</label>
+        <select id="lDifficulty">
+          <option value="beginner">Beginner</option>
+          <option value="intermediate">Intermediate</option>
+          <option value="advanced">Advanced</option>
+        </select>
+      </div>
+    </div>
+    <div class="grid grid-2" style="gap:.75rem;">
+      <div class="form-group"><label>Duration</label><input type="text" id="lDuration" placeholder="e.g. 2 hours"></div>
+      <div class="form-group"><label>Author</label><input type="text" id="lAuthor" placeholder="Instructor name"></div>
+    </div>
+    <div class="form-group"><label>Description *</label><textarea id="lDescription" rows="3" placeholder="Brief lesson description"></textarea></div>
+    <div class="form-group"><label>Full Content</label><textarea id="lContent" rows="5" placeholder="Full lesson content or notes"></textarea></div>
+    <div class="form-group"><label>Resources / Links</label><textarea id="lResources" rows="2" placeholder="Additional resources or URLs"></textarea></div>
+    <div class="flex gap-2">
+      <button class="btn btn-primary flex-1" onclick="saveItem('lessons')"><i class="fas fa-save"></i> Save Lesson</button>
+      <button class="btn btn-outline" onclick="closeModal('lessonsModal')">Cancel</button>
+    </div>
+  </div>
+</div>
+
+<!-- PROJECT MODAL -->
+<div class="modal-overlay" id="projectsModal">
+  <div class="modal">
+    <div class="modal-header">
+      <h3 id="projectsModalTitle">Add Project</h3>
+      <button class="modal-close" onclick="closeModal('projectsModal')"><i class="fas fa-times"></i></button>
+    </div>
+    <div class="form-group"><label>Project Title *</label><input type="text" id="pTitle" placeholder="Project name"></div>
+    <div class="grid grid-2" style="gap:.75rem;">
+      <div class="form-group"><label>Category *</label>
+        <select id="pCategory">
+          <option value="">Select…</option>
+          <option value="web">Web</option><option value="app">App</option>
+          <option value="robotics">Robotics</option><option value="ai">AI / Data</option>
+          <option value="design">Design</option><option value="other">Other</option>
+        </select>
+      </div>
+      <div class="form-group"><label>Year</label><input type="text" id="pYear" placeholder="e.g. 2026"></div>
+    </div>
+    <div class="form-group"><label>Description *</label><textarea id="pDescription" rows="3" placeholder="Project description"></textarea></div>
+    <div class="form-group"><label>Technologies Used</label><input type="text" id="pTechnologies" placeholder="e.g. HTML, Python, Arduino (comma-separated)"></div>
+    <div class="form-group"><label>Team</label><input type="text" id="pTeam" placeholder="Team or student names"></div>
+    <div class="form-group"><label>Image URL</label><input type="url" id="pImageUrl" placeholder="https://… (direct image link)"></div>
+    <div class="form-group"><label>Project Link</label><input type="url" id="pLink" placeholder="https://… (live project or GitHub)"></div>
+    <div class="flex gap-2">
+      <button class="btn btn-primary flex-1" onclick="saveItem('projects')"><i class="fas fa-save"></i> Save Project</button>
+      <button class="btn btn-outline" onclick="closeModal('projectsModal')">Cancel</button>
+    </div>
+  </div>
+</div>
+
+<!-- NEWS MODAL -->
+<div class="modal-overlay" id="newsModal">
+  <div class="modal">
+    <div class="modal-header">
+      <h3 id="newsModalTitle">Add News</h3>
+      <button class="modal-close" onclick="closeModal('newsModal')"><i class="fas fa-times"></i></button>
+    </div>
+    <div class="form-group"><label>Title *</label><input type="text" id="nTitle" placeholder="News headline"></div>
+    <div class="grid grid-2" style="gap:.75rem;">
+      <div class="form-group"><label>Tag / Category</label>
+        <select id="nTag">
+          <option value="announcement">Announcement</option>
+          <option value="achievement">Achievement</option>
+          <option value="workshop">Workshop</option>
+          <option value="general">General</option>
+        </select>
+      </div>
+      <div class="form-group"><label>Author</label><input type="text" id="nAuthor" placeholder="Author name"></div>
+    </div>
+    <div class="form-group"><label>Summary</label><textarea id="nSummary" rows="2" placeholder="Short summary (shown in cards)"></textarea></div>
+    <div class="form-group"><label>Full Content *</label><textarea id="nContent" rows="6" placeholder="Full news article content"></textarea></div>
+    <div class="flex gap-2">
+      <button class="btn btn-primary flex-1" onclick="saveItem('news')"><i class="fas fa-save"></i> Save Article</button>
+      <button class="btn btn-outline" onclick="closeModal('newsModal')">Cancel</button>
+    </div>
+  </div>
+</div>
+
+<!-- EVENT MODAL -->
+<div class="modal-overlay" id="eventsModal">
+  <div class="modal">
+    <div class="modal-header">
+      <h3 id="eventsModalTitle">Add Event</h3>
+      <button class="modal-close" onclick="closeModal('eventsModal')"><i class="fas fa-times"></i></button>
+    </div>
+    <div class="form-group"><label>Event Title *</label><input type="text" id="eTitle" placeholder="Event name"></div>
+    <div class="grid grid-2" style="gap:.75rem;">
+      <div class="form-group"><label>Type</label>
+        <select id="eType">
+          <option value="workshop">Workshop</option>
+          <option value="competition">Competition</option>
+          <option value="meeting">Meeting</option>
+          <option value="exhibition">Exhibition</option>
+          <option value="other">Other</option>
+        </select>
+      </div>
+      <div class="form-group"><label>Date</label><input type="date" id="eDate"></div>
+    </div>
+    <div class="grid grid-2" style="gap:.75rem;">
+      <div class="form-group"><label>Time</label><input type="text" id="eTime" placeholder="e.g. 2:00 PM – 5:00 PM"></div>
+      <div class="form-group"><label>Venue</label><input type="text" id="eVenue" placeholder="Location / room"></div>
+    </div>
+    <div class="grid grid-2" style="gap:.75rem;">
+      <div class="form-group"><label>Organiser</label><input type="text" id="eOrganiser" placeholder="Person or team"></div>
+      <div class="form-group"><label>Capacity</label><input type="text" id="eCapacity" placeholder="e.g. 30 participants"></div>
+    </div>
+    <div class="form-group"><label>Description *</label><textarea id="eDescription" rows="3" placeholder="Event description"></textarea></div>
+    <div class="form-group"><label>Notes / Requirements</label><textarea id="eNotes" rows="2" placeholder="Any special notes or requirements"></textarea></div>
+    <div class="flex gap-2">
+      <button class="btn btn-primary flex-1" onclick="saveItem('events')"><i class="fas fa-save"></i> Save Event</button>
+      <button class="btn btn-outline" onclick="closeModal('eventsModal')">Cancel</button>
+    </div>
+  </div>
+</div>
+
+<!-- GALLERY MODAL -->
+<div class="modal-overlay" id="galleryModal">
+  <div class="modal">
+    <div class="modal-header">
+      <h3 id="galleryModalTitle">Add Gallery Image</h3>
+      <button class="modal-close" onclick="closeModal('galleryModal')"><i class="fas fa-times"></i></button>
+    </div>
+    <div class="form-group"><label>Image URL *</label><input type="url" id="gUrl" placeholder="https://… (direct image URL)"></div>
+    <div class="form-group"><label>Title</label><input type="text" id="gTitle" placeholder="Short image title"></div>
+    <div class="form-group"><label>Caption</label><input type="text" id="gCaption" placeholder="Descriptive caption shown in gallery"></div>
+    <div class="form-group"><label>Tag</label>
+      <select id="gTag">
+        <option value="workshop">Workshop</option>
+        <option value="project">Project</option>
+        <option value="event">Event</option>
+        <option value="team">Team</option>
+        <option value="other">Other</option>
+      </select>
+    </div>
+    <div class="alert alert-info" style="font-size:.85rem;"><i class="fas fa-info-circle"></i> Use a direct image URL (e.g. from Imgur, Google Drive, or your web server). The image must be publicly accessible.</div>
+    <div class="flex gap-2">
+      <button class="btn btn-primary flex-1" onclick="saveItem('gallery')"><i class="fas fa-save"></i> Save Image</button>
+      <button class="btn btn-outline" onclick="closeModal('galleryModal')">Cancel</button>
+    </div>
+  </div>
+</div>
+
+<!-- FEEDBACK VIEW MODAL -->
+<div class="modal-overlay" id="feedbackViewModal">
+  <div class="modal">
+    <div class="modal-header">
+      <h3>Feedback Message</h3>
+      <button class="modal-close" onclick="closeModal('feedbackViewModal')"><i class="fas fa-times"></i></button>
+    </div>
+    <div id="fbViewBody"></div>
+    <div style="margin-top:1.25rem;">
+      <button class="btn btn-outline" onclick="closeModal('feedbackViewModal')">Close</button>
+    </div>
+  </div>
+</div>
+
+<script type="module" src="js/admin.js"></script>
+</body>
+</html>

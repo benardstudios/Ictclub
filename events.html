@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ICT Club Uganda | Events</title>
+  <meta name="description" content="Upcoming workshops, competitions and meetings from ICT Club Uganda.">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/style-patch.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+  <link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet">
+</head>
+<body>
+<!-- Page Loading Overlay -->
+<div class="page-loading" id="pageLoader">
+  <div class="page-loading-logo">ICT Club</div>
+  <div class="spinner"></div>
+  <span>Loading…</span>
+</div>
+<script>
+  window.addEventListener('load', function() {
+    var loader = document.getElementById('pageLoader');
+    if (loader) {
+      loader.classList.add('fade-out');
+      setTimeout(function(){ loader.style.display = 'none'; }, 450);
+    }
+  });
+</script>
+
+<div id="progress-bar"></div>
+<nav>
+  <div class="logo"><img src="assets/logo.png" alt="ICT Club Uganda Logo" onerror="this.style.display='none'">
+    <div class="school-logo-placeholder" title="Buhobe Secondary School">BSS</div>
+  <div class="nav-links" id="navLinks">
+    <a href="index.html">Home</a><a href="about.html">About</a><a href="lessons.html">Lessons</a>
+    <a href="projects.html">Projects</a><a href="news.html">News</a><a href="events.html">Events</a>
+    <a href="gallery.html">Gallery</a><a href="feedback.html">Feedback</a><a href="portal.html">Portal</a>
+  </div>
+  <div class="nav-actions"><button id="modeBtn" class="mode-btn">🌙 Dark</button></div>
+  <button class="hamburger" id="hamburger"><i class="fas fa-bars"></i></button>
+</nav>
+
+<section class="hero" style="min-height:50vh;">
+  <div class="hero-badge" data-aos="fade-down"><i class="fas fa-calendar-alt"></i> What's On</div>
+  <h1 data-aos="zoom-in">Club <span>Events</span></h1>
+  <p data-aos="fade-up">Workshops, competitions, club meetings and technology exhibitions. Stay involved.</p>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="flex flex-between flex-wrap gap-2 mb-3" data-aos="fade-up">
+      <div class="search-bar" style="max-width:360px;flex:1;">
+        <input type="text" id="eventSearch" placeholder="Search events…">
+        <button class="btn btn-primary btn-sm"><i class="fas fa-search"></i></button>
+      </div>
+      <div class="tab-bar">
+        <button class="tab-btn active" data-etype="all">All</button>
+        <button class="tab-btn" data-etype="workshop">Workshops</button>
+        <button class="tab-btn" data-etype="competition">Competitions</button>
+        <button class="tab-btn" data-etype="meeting">Meetings</button>
+        <button class="tab-btn" data-etype="exhibition">Exhibitions</button>
+      </div>
+    </div>
+
+    <!-- Upcoming highlight -->
+    <div id="upcomingBanner" style="margin-bottom:2rem;"></div>
+
+    <h3 class="section-eyebrow mb-2">All Events</h3>
+    <div class="grid grid-auto" id="eventsGrid">
+      <div class="loading-wrap" style="grid-column:1/-1;"><div class="spinner"></div><p>Loading events…</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- Event Detail Modal -->
+<div class="modal-overlay" id="eventModal">
+  <div class="modal">
+    <div class="modal-header">
+      <h3 id="eventModalTitle">Event Details</h3>
+      <button class="modal-close" data-modal-close="eventModal"><i class="fas fa-times"></i></button>
+    </div>
+    <div id="eventModalBody"></div>
+  </div>
+</div>
+
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="logo"><img src="assets/logo.png" alt="ICT Club" onerror="this.style.display='none'">
+    <div class="school-logo-placeholder" title="Buhobe Secondary School">BSS</div>
+    <div class="school-logo-placeholder" title="Buhobe Secondary School">BSS</div> ICT Club Uganda</div>
+        <p>Empowering the next generation through technology education.</p>
+        <div class="footer-social">
+          <a href="#"><i class="fab fa-facebook-f"></i></a><a href="#"><i class="fab fa-instagram"></i></a>
+          <a href="#"><i class="fab fa-youtube"></i></a><a href="#"><i class="fab fa-twitter"></i></a>
+        </div>
+      </div>
+      <div><h4>Quick Links</h4><ul><li><a href="index.html">Home</a></li><li><a href="about.html">About</a></li><li><a href="news.html">News</a></li><li><a href="events.html">Events</a></li></ul></div>
+      <div><h4>Resources</h4><ul><li><a href="lessons.html">Lessons</a></li><li><a href="projects.html">Projects</a></li><li><a href="portal.html">Portal</a></li><li><a href="feedback.html">Feedback</a></li></ul></div>
+      <div><h4>Contact</h4><ul><li><a href="mailto:info@ictclubuganda.org"><i class="fas fa-envelope"></i> info@ictclubuganda.org</a></li><li><a href="#"><i class="fas fa-map-marker-alt"></i> Uganda</a></li></ul></div>
+    </div>
+    <div class="footer-bottom"><p>© 2026 ICT Club Uganda. All Rights Reserved.</p><p>Built with ❤️ by ICT Club Members</p></div>
+  </div>
+</footer>
+
+<button id="scrollTopBtn" aria-label="Scroll to top"><i class="fas fa-chevron-up"></i></button>
+<script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+<script src="js/script.js"></script>
+<script type="module">
+  import { db, ref, onValue } from './js/firebase.js';
+  const grid=document.getElementById('eventsGrid'), search=document.getElementById('eventSearch');
+  const catBtns=document.querySelectorAll('[data-etype]'), banner=document.getElementById('upcomingBanner');
+  let allEvents=[], activeFilter='all';
+  const typeColors={workshop:'badge-blue',competition:'badge-red',meeting:'badge-green',exhibition:'badge-gold',other:'badge-blue'};
+  const typeIcons={workshop:'fa-chalkboard-teacher',competition:'fa-trophy',meeting:'fa-users',exhibition:'fa-star',other:'fa-calendar'};
+  function escHtml(s){return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
+  function parseEventDate(s){return s?new Date(s):null;}
+
+  function renderBanner(events){
+    const upcoming=events.filter(e=>{const d=parseEventDate(e.date);return d&&d>=new Date();}).sort((a,b)=>new Date(a.date)-new Date(b.date));
+    if(!upcoming.length){banner.innerHTML='';return;}
+    const next=upcoming[0];
+    banner.innerHTML=`
+      <div class="card" style="background:var(--grad-primary);color:#fff;border:none;" data-aos="fade-up">
+        <div class="flex gap-2 flex-wrap" style="align-items:center;">
+          <div style="background:rgba(255,255,255,.15);border-radius:12px;padding:.75rem 1.25rem;text-align:center;min-width:64px;">
+            <div style="font-size:2rem;font-weight:800;line-height:1;font-family:'Syne',sans-serif;">${new Date(next.date).getDate()}</div>
+            <div style="font-size:.72rem;text-transform:uppercase;letter-spacing:.1em;opacity:.85;">${new Date(next.date).toLocaleString('default',{month:'short'})}</div>
+          </div>
+          <div style="flex:1;">
+            <div style="font-size:.72rem;text-transform:uppercase;letter-spacing:.1em;opacity:.7;margin-bottom:.25rem;">Next Up</div>
+            <h3 style="color:#fff;margin-bottom:.3rem;">${escHtml(next.title)}</h3>
+            <p style="opacity:.85;font-size:.9rem;">${escHtml((next.description||'').substring(0,120))}</p>
+            <div class="flex gap-1 mt-2 flex-wrap">
+              ${next.venue?`<span style="font-size:.8rem;opacity:.8;"><i class="fas fa-map-marker-alt"></i> ${escHtml(next.venue)}</span>`:''}
+              ${next.time?`<span style="font-size:.8rem;opacity:.8;margin-left:.75rem;"><i class="fas fa-clock"></i> ${escHtml(next.time)}</span>`:''}
+            </div>
+          </div>
+        </div>
+      </div>`;
+  }
+
+  function renderEvents(events){
+    if(!events.length){
+      grid.innerHTML=`<div class="empty-state" style="grid-column:1/-1;"><i class="fas fa-calendar-times"></i><h4>No events found</h4><p>Try a different filter.</p></div>`;return;
+    }
+    grid.innerHTML=events.map((e,i)=>{
+      const d=parseEventDate(e.date);
+      const isPast=d&&d<new Date();
+      return `
+        <div class="card event-card" data-aos="fade-up" data-aos-delay="${(i%6)*60}" style="cursor:pointer;${isPast?'opacity:.7;':''}" onclick="openEvent('${e.id}')">
+          <div class="flex gap-2" style="align-items:flex-start;">
+            ${d?`<div class="event-date"><span class="day">${d.getDate()}</span><span class="month">${d.toLocaleString('default',{month:'short'})}</span></div>`:''}
+            <div style="flex:1;">
+              <div class="flex flex-between mb-1" style="flex-wrap:wrap;gap:.3rem;">
+                <span class="badge ${typeColors[e.type]||'badge-blue'}" style="font-size:.7rem;text-transform:capitalize;">${escHtml(e.type||'Event')}</span>
+                ${isPast?`<span class="badge" style="background:rgba(0,0,0,.08);color:var(--text-light);font-size:.7rem;">Past</span>`:''}
+              </div>
+              <h3>${escHtml(e.title)}</h3>
+              <p style="font-size:.88rem;">${escHtml((e.description||'').substring(0,100))}${(e.description||'').length>100?'…':''}</p>
+              <div class="flex gap-2 mt-2 flex-wrap">
+                ${e.venue?`<span class="tech-tag"><i class="fas fa-map-marker-alt"></i> ${escHtml(e.venue)}</span>`:''}
+                ${e.time?`<span class="tech-tag"><i class="fas fa-clock"></i> ${escHtml(e.time)}</span>`:''}
+              </div>
+            </div>
+          </div>
+        </div>`;
+    }).join('');
+    if(typeof AOS!=='undefined') AOS.refresh();
+  }
+
+  function applyFilters(){
+    const q=(search.value||'').toLowerCase();
+    const filtered=allEvents.filter(e=>{
+      const matchType=activeFilter==='all'||e.type===activeFilter;
+      const matchText=!q||e.title?.toLowerCase().includes(q)||(e.description||'').toLowerCase().includes(q)||e.venue?.toLowerCase().includes(q);
+      return matchType&&matchText;
+    }).sort((a,b)=>new Date(a.date||0)-new Date(b.date||0));
+    renderEvents(filtered);
+  }
+
+  catBtns.forEach(btn=>{
+    btn.addEventListener('click',()=>{catBtns.forEach(b=>b.classList.remove('active'));btn.classList.add('active');activeFilter=btn.dataset.etype;applyFilters();});
+  });
+  search.addEventListener('input',applyFilters);
+
+  window.openEvent=function(id){
+    const e=allEvents.find(x=>x.id===id);if(!e)return;
+    const d=parseEventDate(e.date);
+    document.getElementById('eventModalTitle').textContent=e.title;
+    document.getElementById('eventModalBody').innerHTML=`
+      <div class="flex gap-2 flex-wrap mb-3">
+        <span class="badge ${typeColors[e.type]||'badge-blue'}" style="text-transform:capitalize;">${escHtml(e.type||'Event')}</span>
+        ${d?`<span class="badge badge-green"><i class="fas fa-calendar"></i> ${d.toLocaleDateString('en-UG',{weekday:'long',day:'numeric',month:'long',year:'numeric'})}</span>`:''}
+      </div>
+      <p style="color:var(--text-sub);line-height:1.85;margin-bottom:1.25rem;">${escHtml(e.description||'')}</p>
+      <div class="grid grid-2" style="gap:.75rem;margin-bottom:1rem;">
+        ${e.venue?`<div class="card" style="padding:.85rem;"><strong style="font-size:.78rem;text-transform:uppercase;letter-spacing:.06em;color:var(--text-light);">Venue</strong><p style="margin-top:.3rem;">${escHtml(e.venue)}</p></div>`:''}
+        ${e.time?`<div class="card" style="padding:.85rem;"><strong style="font-size:.78rem;text-transform:uppercase;letter-spacing:.06em;color:var(--text-light);">Time</strong><p style="margin-top:.3rem;">${escHtml(e.time)}</p></div>`:''}
+        ${e.organiser?`<div class="card" style="padding:.85rem;"><strong style="font-size:.78rem;text-transform:uppercase;letter-spacing:.06em;color:var(--text-light);">Organiser</strong><p style="margin-top:.3rem;">${escHtml(e.organiser)}</p></div>`:''}
+        ${e.capacity?`<div class="card" style="padding:.85rem;"><strong style="font-size:.78rem;text-transform:uppercase;letter-spacing:.06em;color:var(--text-light);">Capacity</strong><p style="margin-top:.3rem;">${escHtml(e.capacity)} participants</p></div>`:''}
+      </div>
+      ${e.notes?`<div class="alert alert-info"><i class="fas fa-info-circle"></i> ${escHtml(e.notes)}</div>`:''}`;
+    openModal('eventModal');
+  };
+
+  const now=Date.now();
+  const fallbackEvents=[
+    {id:'1',title:'JavaScript Programming Workshop',type:'workshop',date:'2026-06-15',time:'2:00 PM – 5:00 PM',venue:'Computer Lab',description:'Learn JavaScript fundamentals through hands-on coding exercises. Topics include variables, functions, DOM manipulation and event handling. Suitable for beginners.',organiser:'Programming Lead',capacity:'30',createdAt:now},
+    {id:'2',title:'Arduino Robotics Training',type:'workshop',date:'2026-06-22',time:'9:00 AM – 1:00 PM',venue:'Innovation Hub',description:'Hands-on Arduino programming and circuit building. Participants will build a line-following robot during the session.',organiser:'Robotics Team',capacity:'20',createdAt:now},
+    {id:'3',title:'Annual ICT Exhibition',type:'exhibition',date:'2026-06-30',time:'8:00 AM – 4:00 PM',venue:'Main Hall',description:'Students showcase their technology projects to teachers, parents and community members. All club members are encouraged to participate.',organiser:'Club Patron',capacity:'200',createdAt:now},
+    {id:'4',title:'Monthly Club Meeting',type:'meeting',date:'2026-07-05',time:'1:00 PM – 2:30 PM',venue:'Computer Lab',description:'Regular monthly meeting to discuss club activities, upcoming events and member feedback. Attendance is mandatory for executive members.',organiser:'Club President',createdAt:now},
+    {id:'5',title:'District Coding Competition',type:'competition',date:'2026-07-20',time:'8:00 AM',venue:'District Education Office',description:'Inter-school coding competition. Our club will field a team of 5 students. Preliminary selection will be held the week before.',organiser:'Club Patron',capacity:'5 team slots',createdAt:now},
+    {id:'6',title:'Cybersecurity Awareness Session',type:'workshop',date:'2026-08-10',time:'3:00 PM – 5:00 PM',venue:'Computer Lab',description:'Learn about online safety, password security, phishing attacks and how to protect personal data. Open to all students.',organiser:'Cybersecurity Lead',capacity:'40',createdAt:now},
+  ];
+
+  try{
+    const eventsRef=ref(db,'events');
+    onValue(eventsRef,(snapshot)=>{
+      const data=snapshot.val();
+      if(data){allEvents=Object.entries(data).map(([k,v])=>({...v,id:k}));}
+      else{allEvents=fallbackEvents;}
+      renderBanner(allEvents);applyFilters();
+    },()=>{allEvents=fallbackEvents;renderBanner(allEvents);applyFilters();});
+  }catch(e){allEvents=fallbackEvents;renderBanner(allEvents);applyFilters();}
+</script>
+</body>
+</html>

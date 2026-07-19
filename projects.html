@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ICT Club Uganda | Projects</title>
+  <meta name="description" content="Student projects built by ICT Club Uganda members — websites, apps, robotics and more.">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/style-patch.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+  <link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet">
+</head>
+<body>
+<!-- Page Loading Overlay -->
+<div class="page-loading" id="pageLoader">
+  <div class="page-loading-logo">ICT Club</div>
+  <div class="spinner"></div>
+  <span>Loading…</span>
+</div>
+<script>
+  window.addEventListener('load', function() {
+    var loader = document.getElementById('pageLoader');
+    if (loader) {
+      loader.classList.add('fade-out');
+      setTimeout(function(){ loader.style.display = 'none'; }, 450);
+    }
+  });
+</script>
+
+<div id="progress-bar"></div>
+
+<nav>
+  <div class="logo">
+    <img src="assets/logo.png" alt="ICT Club Uganda Logo" onerror="this.style.display='none'">
+    <div class="school-logo-placeholder" title="Buhobe Secondary School">BSS</div>
+  <div class="nav-links" id="navLinks">
+    <a href="index.html">Home</a>
+    <a href="about.html">About</a>
+    <a href="lessons.html">Lessons</a>
+    <a href="projects.html">Projects</a>
+    <a href="news.html">News</a>
+    <a href="events.html">Events</a>
+    <a href="gallery.html">Gallery</a>
+    <a href="feedback.html">Feedback</a>
+    <a href="portal.html">Portal</a>
+  </div>
+  <div class="nav-actions">
+    <button id="modeBtn" class="mode-btn">🌙 Dark</button>
+  </div>
+  <button class="hamburger" id="hamburger"><i class="fas fa-bars"></i></button>
+</nav>
+
+<!-- HERO -->
+<section class="hero" style="min-height:55vh;">
+  <div class="hero-badge" data-aos="fade-down"><i class="fas fa-rocket"></i> Student Innovation</div>
+  <h1 data-aos="zoom-in">Student <span>Projects</span></h1>
+  <p data-aos="fade-up">Real-world solutions built by our talented members. From websites to robots to mobile apps.</p>
+</section>
+
+<!-- PROJECTS SECTION -->
+<section class="section">
+  <div class="container">
+
+    <!-- Filter + Search -->
+    <div class="flex flex-between flex-wrap gap-2 mb-3" data-aos="fade-up">
+      <div class="search-bar" style="max-width:360px; flex:1;">
+        <input type="text" id="projectSearch" placeholder="Search projects…">
+        <button class="btn btn-primary btn-sm"><i class="fas fa-search"></i></button>
+      </div>
+      <div class="tab-bar">
+        <button class="tab-btn active" data-pcat="all">All</button>
+        <button class="tab-btn" data-pcat="web">Web</button>
+        <button class="tab-btn" data-pcat="app">Apps</button>
+        <button class="tab-btn" data-pcat="robotics">Robotics</button>
+        <button class="tab-btn" data-pcat="ai">AI / Data</button>
+        <button class="tab-btn" data-pcat="design">Design</button>
+      </div>
+    </div>
+
+    <!-- Projects Grid -->
+    <div class="grid grid-auto" id="projectsGrid">
+      <div class="loading-wrap" style="grid-column:1/-1;">
+        <div class="spinner"></div>
+        <p>Loading projects…</p>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="logo"><img src="assets/logo.png" alt="ICT Club" onerror="this.style.display='none'">
+    <div class="school-logo-placeholder" title="Buhobe Secondary School">BSS</div>
+    <div class="school-logo-placeholder" title="Buhobe Secondary School">BSS</div> ICT Club Uganda</div>
+        <p>Empowering the next generation through technology education.</p>
+        <div class="footer-social">
+          <a href="#"><i class="fab fa-facebook-f"></i></a>
+          <a href="#"><i class="fab fa-instagram"></i></a>
+          <a href="#"><i class="fab fa-youtube"></i></a>
+          <a href="#"><i class="fab fa-twitter"></i></a>
+        </div>
+      </div>
+      <div>
+        <h4>Quick Links</h4>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="about.html">About</a></li>
+          <li><a href="lessons.html">Lessons</a></li>
+          <li><a href="projects.html">Projects</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Resources</h4>
+        <ul>
+          <li><a href="news.html">News</a></li>
+          <li><a href="events.html">Events</a></li>
+          <li><a href="portal.html">Portal</a></li>
+          <li><a href="admin.html">Admin</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Contact</h4>
+        <ul>
+          <li><a href="mailto:info@ictclubuganda.org"><i class="fas fa-envelope"></i> info@ictclubuganda.org</a></li>
+          <li><a href="#"><i class="fas fa-map-marker-alt"></i> Uganda</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2026 ICT Club Uganda. All Rights Reserved.</p>
+      <p>Built with ❤️ by ICT Club Members</p>
+    </div>
+  </div>
+</footer>
+
+<button id="scrollTopBtn" aria-label="Scroll to top"><i class="fas fa-chevron-up"></i></button>
+
+<script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+<script src="js/script.js"></script>
+<script type="module">
+  import { db, ref, onValue } from './js/firebase.js';
+
+  const grid    = document.getElementById('projectsGrid');
+  const search  = document.getElementById('projectSearch');
+  const catBtns = document.querySelectorAll('[data-pcat]');
+
+  let allProjects  = [];
+  let activeFilter = 'all';
+
+  // Placeholder image for projects without images
+  const PLACEHOLDER = `data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='225' viewBox='0 0 400 225'%3E%3Crect width='400' height='225' fill='%231a3a8f' rx='8'/%3E%3Ctext x='200' y='120' text-anchor='middle' fill='%23ffffff44' font-size='50' font-family='sans-serif'%3E💻%3C/text%3E%3C/svg%3E`;
+
+  function escHtml(s) { return String(s || '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+
+  function renderProjects(projects) {
+    if (!projects.length) {
+      grid.innerHTML = `
+        <div class="empty-state" style="grid-column:1/-1;">
+          <i class="fas fa-rocket"></i>
+          <h4>No projects found</h4>
+          <p>Try a different search or filter.</p>
+        </div>`;
+      return;
+    }
+
+    grid.innerHTML = projects.map((p, i) => `
+      <div class="card" data-aos="fade-up" data-aos-delay="${(i % 6) * 60}">
+        <img class="project-img"
+             src="${p.imageUrl || PLACEHOLDER}"
+             alt="${escHtml(p.title)}"
+             onerror="this.src='${PLACEHOLDER}'">
+        <div class="flex flex-between mb-2" style="flex-wrap:wrap;gap:.4rem;">
+          <span class="badge badge-blue" style="font-size:.7rem;text-transform:capitalize;">${escHtml(p.category || 'General')}</span>
+          ${p.year ? `<span class="badge badge-green" style="font-size:.7rem;">${escHtml(p.year)}</span>` : ''}
+        </div>
+        <h3>${escHtml(p.title)}</h3>
+        <p>${escHtml((p.description || '').substring(0,140))}${(p.description||'').length > 140 ? '…' : ''}</p>
+        ${p.team ? `<p style="font-size:.82rem;color:var(--text-light);margin-top:.5rem;"><i class="fas fa-users"></i> ${escHtml(p.team)}</p>` : ''}
+        <div class="tech-tags">
+          ${(p.technologies || '').split(',').filter(Boolean).map(t =>
+            `<span class="tech-tag">${escHtml(t.trim())}</span>`
+          ).join('')}
+        </div>
+        ${p.link ? `<a href="${escHtml(p.link)}" target="_blank" rel="noopener" class="btn btn-outline btn-sm mt-2"><i class="fas fa-external-link-alt"></i> View Project</a>` : ''}
+      </div>`
+    ).join('');
+
+    if (typeof AOS !== 'undefined') AOS.refresh();
+  }
+
+  function applyFilters() {
+    const q = (search.value || '').toLowerCase();
+    const filtered = allProjects.filter(p => {
+      const matchCat  = activeFilter === 'all' || p.category === activeFilter;
+      const matchText = !q || p.title?.toLowerCase().includes(q) || p.description?.toLowerCase().includes(q) || p.technologies?.toLowerCase().includes(q);
+      return matchCat && matchText;
+    });
+    renderProjects(filtered);
+  }
+
+  catBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      catBtns.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      activeFilter = btn.dataset.pcat;
+      applyFilters();
+    });
+  });
+
+  search.addEventListener('input', applyFilters);
+
+  // Fallback static projects
+  const fallbackProjects = [
+    { id:'1', title:'School Information Website', category:'web', description:'A fully responsive school information management website with student portal, news and events sections.', technologies:'HTML, CSS, JavaScript, Firebase', team:'Senior 4 Web Dev Group', year:'2026', createdAt: Date.now() },
+    { id:'2', title:'Automated Attendance System', category:'app', description:'A Python application that tracks student attendance using QR codes and uploads data to Firebase in real time.', technologies:'Python, Firebase, QR Code', team:'Programming Team', year:'2026', createdAt: Date.now() },
+    { id:'3', title:'Smart Irrigation Controller', category:'robotics', description:'An IoT-based agricultural monitoring and irrigation control system using Arduino and soil moisture sensors.', technologies:'Arduino, C++, IoT, Sensors', team:'Robotics Team', year:'2025', createdAt: Date.now() },
+    { id:'4', title:'Community Health App', category:'app', description:'A mobile-friendly web application providing health information and clinic locator for rural communities in Uganda.', technologies:'HTML, CSS, JavaScript, Maps API', team:'Innovation Lab', year:'2026', createdAt: Date.now() },
+    { id:'5', title:'AI Study Assistant', category:'ai', description:'A chatbot that helps students with homework questions using natural language processing techniques.', technologies:'Python, NLP, Flask, JavaScript', team:'AI Research Group', year:'2026', createdAt: Date.now() },
+    { id:'6', title:'Club Branding & Design System', category:'design', description:'Complete visual identity for ICT Club Uganda including logo, colour palette, typography and marketing materials.', technologies:'Adobe Illustrator, Figma, Photoshop', team:'Design Team', year:'2026', createdAt: Date.now() },
+  ];
+
+  try {
+    const projectsRef = ref(db, 'projects');
+    onValue(projectsRef, (snapshot) => {
+      const data = snapshot.val();
+      if (data) {
+        allProjects = Object.entries(data).map(([k, v]) => ({ ...v, id: k }))
+          .sort((a, b) => (b.createdAt || 0) - (a.createdAt || 0));
+      } else {
+        allProjects = fallbackProjects;
+      }
+      applyFilters();
+    }, (err) => {
+      console.warn('Firebase error:', err);
+      allProjects = fallbackProjects;
+      applyFilters();
+    });
+  } catch(e) {
+    allProjects = fallbackProjects;
+    applyFilters();
+  }
+</script>
+</body>
+</html>

@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ICT Club Uganda | Student Portal</title>
+  <meta name="description" content="ICT Club Uganda student portal — login or register to access member resources.">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/style-patch.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+</head>
+<body>
+<!-- Page Loading Overlay -->
+<div class="page-loading" id="pageLoader">
+  <div class="page-loading-logo">ICT Club</div>
+  <div class="spinner"></div>
+  <span>Loading…</span>
+</div>
+<script>
+  window.addEventListener('load', function() {
+    var loader = document.getElementById('pageLoader');
+    if (loader) {
+      loader.classList.add('fade-out');
+      setTimeout(function(){ loader.style.display = 'none'; }, 450);
+    }
+  });
+</script>
+
+<div id="progress-bar"></div>
+<nav>
+  <div class="logo"><img src="assets/logo.png" alt="ICT Club Uganda Logo" onerror="this.style.display='none'">
+    <div class="school-logo-placeholder" title="Buhobe Secondary School">BSS</div>
+  <div class="nav-links" id="navLinks">
+    <a href="index.html">Home</a><a href="about.html">About</a><a href="lessons.html">Lessons</a>
+    <a href="projects.html">Projects</a><a href="news.html">News</a><a href="events.html">Events</a>
+    <a href="gallery.html">Gallery</a><a href="feedback.html">Feedback</a><a href="portal.html">Portal</a>
+  </div>
+  <div class="nav-actions"><button id="modeBtn" class="mode-btn">🌙 Dark</button></div>
+  <button class="hamburger" id="hamburger"><i class="fas fa-bars"></i></button>
+</nav>
+
+<!-- INSTANT LOADING SCREEN (shown immediately, hidden once Firebase responds) -->
+<div id="portalLoader" style="
+  min-height: calc(100vh - 68px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  text-align: center;
+  padding: 2rem;
+">
+  <img src="assets/logo.png" alt="ICT Club Uganda"
+       style="width:72px;height:72px;border-radius:50%;object-fit:contain;opacity:.9;animation:pulse-ring 2s infinite;"
+       onerror="this.style.display='none'">
+  <div class="spinner"></div>
+  <p style="color:var(--text-sub);font-size:.9rem;">Loading portal…</p>
+</div>
+
+<!-- AUTH VIEWS -->
+<div id="authView" class="auth-wrap" style="display:none;">
+  <div class="auth-card">
+    <div class="auth-logo">
+      <img src="assets/logo.png" alt="ICT Club Uganda" onerror="this.style.display='none'">
+      <h2>ICT Club Uganda</h2>
+      <p>Student Member Portal</p>
+    </div>
+
+    <div class="auth-tabs">
+      <button class="auth-tab active" id="tabLogin" onclick="switchTab('login')">Sign In</button>
+      <button class="auth-tab" id="tabRegister" onclick="switchTab('register')">Register</button>
+    </div>
+
+    <div id="authAlert"></div>
+
+    <!-- LOGIN FORM -->
+    <div id="loginForm">
+      <div class="form-group">
+        <label><i class="fas fa-envelope"></i> Email Address</label>
+        <input type="email" id="loginEmail" placeholder="your@email.com">
+      </div>
+      <div class="form-group">
+        <label><i class="fas fa-lock"></i> Password</label>
+        <div style="position:relative;">
+          <input type="password" id="loginPassword" placeholder="Your password" style="padding-right:2.75rem;">
+          <button onclick="togglePwd('loginPassword',this)" style="position:absolute;right:.75rem;top:50%;transform:translateY(-50%);background:none;border:none;cursor:pointer;color:var(--text-sub);font-size:.9rem;" type="button"><i class="fas fa-eye"></i></button>
+        </div>
+      </div>
+      <div class="flex flex-between mb-3" style="font-size:.85rem;">
+        <label style="display:flex;align-items:center;gap:.4rem;cursor:pointer;color:var(--text-sub);">
+          <input type="checkbox" id="rememberMe"> Remember me
+        </label>
+        <a href="#" onclick="showReset()" style="color:var(--blue-bright);">Forgot password?</a>
+      </div>
+      <button class="btn btn-primary btn-block btn-lg" onclick="doLogin()">
+        <i class="fas fa-sign-in-alt"></i> Sign In
+      </button>
+      <p style="text-align:center;margin-top:1rem;font-size:.85rem;color:var(--text-sub);">
+        New member? <a href="#" onclick="switchTab('register')">Create account →</a>
+      </p>
+    </div>
+
+    <!-- REGISTER FORM -->
+    <div id="registerForm" style="display:none;">
+      <div class="grid grid-2" style="gap:.75rem;">
+        <div class="form-group">
+          <label><i class="fas fa-user"></i> First Name</label>
+          <input type="text" id="regFirstName" placeholder="First name">
+        </div>
+        <div class="form-group">
+          <label><i class="fas fa-user"></i> Last Name</label>
+          <input type="text" id="regLastName" placeholder="Last name">
+        </div>
+      </div>
+      <div class="form-group">
+        <label><i class="fas fa-envelope"></i> Email Address</label>
+        <input type="email" id="regEmail" placeholder="your@email.com">
+      </div>
+      <div class="form-group">
+        <label><i class="fas fa-school"></i> Class / Year</label>
+        <select id="regClass">
+          <option value="">Select class…</option>
+          <option>Senior 1</option><option>Senior 2</option><option>Senior 3</option>
+          <option>Senior 4</option><option>Senior 5</option><option>Senior 6</option>
+          <option>Teacher / Staff</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label><i class="fas fa-lock"></i> Password</label>
+        <div style="position:relative;">
+          <input type="password" id="regPassword" placeholder="Min 6 characters" style="padding-right:2.75rem;">
+          <button onclick="togglePwd('regPassword',this)" style="position:absolute;right:.75rem;top:50%;transform:translateY(-50%);background:none;border:none;cursor:pointer;color:var(--text-sub);font-size:.9rem;" type="button"><i class="fas fa-eye"></i></button>
+        </div>
+      </div>
+      <div class="form-group">
+        <label><i class="fas fa-lock"></i> Confirm Password</label>
+        <input type="password" id="regConfirm" placeholder="Repeat password">
+      </div>
+      <div class="form-group">
+        <label style="display:flex;align-items:center;gap:.5rem;cursor:pointer;font-weight:normal;">
+          <input type="checkbox" id="regTerms">
+          <span style="font-size:.85rem;color:var(--text-sub);">I agree to the club's terms and code of conduct</span>
+        </label>
+      </div>
+      <button class="btn btn-primary btn-block btn-lg" onclick="doRegister()">
+        <i class="fas fa-user-plus"></i> Create Account
+      </button>
+      <p style="text-align:center;margin-top:1rem;font-size:.85rem;color:var(--text-sub);">
+        Already a member? <a href="#" onclick="switchTab('login')">Sign in →</a>
+      </p>
+    </div>
+
+    <!-- RESET PASSWORD FORM -->
+    <div id="resetForm" style="display:none;">
+      <p style="color:var(--text-sub);margin-bottom:1.25rem;font-size:.9rem;">Enter your email and we'll send a password reset link.</p>
+      <div class="form-group">
+        <label><i class="fas fa-envelope"></i> Email Address</label>
+        <input type="email" id="resetEmail" placeholder="your@email.com">
+      </div>
+      <button class="btn btn-primary btn-block" onclick="doReset()">
+        <i class="fas fa-paper-plane"></i> Send Reset Link
+      </button>
+      <p style="text-align:center;margin-top:1rem;font-size:.85rem;">
+        <a href="#" onclick="switchTab('login')">← Back to sign in</a>
+      </p>
+    </div>
+  </div>
+</div>
+
+<!-- DASHBOARD (shown when logged in) -->
+<div id="dashView" style="display:none; min-height:calc(100vh - 68px);">
+  <div class="container" style="padding-top:2.5rem; padding-bottom:3rem;">
+
+    <!-- Welcome Header -->
+    <div class="card" style="background:var(--grad-primary);color:#fff;border:none;margin-bottom:2rem;" id="welcomeCard">
+      <div class="flex gap-2" style="align-items:center;flex-wrap:wrap;">
+        <div style="width:60px;height:60px;border-radius:50%;background:rgba(255,255,255,.2);display:flex;align-items:center;justify-content:center;font-size:1.6rem;flex-shrink:0;">
+          <i class="fas fa-user-circle"></i>
+        </div>
+        <div style="flex:1;">
+          <h2 style="font-family:'Syne',sans-serif;margin-bottom:.2rem;" id="dashName">Welcome!</h2>
+          <p style="opacity:.85;font-size:.9rem;" id="dashEmail"></p>
+        </div>
+        <button class="btn btn-secondary" onclick="doLogout()"><i class="fas fa-sign-out-alt"></i> Sign Out</button>
+      </div>
+    </div>
+
+    <!-- Quick links grid -->
+    <div class="section-eyebrow mb-2">Member Dashboard</div>
+    <h2 class="section-title" style="text-align:left;margin-bottom:1.5rem;">Your ICT Club Hub</h2>
+
+    <div class="grid grid-4">
+      <a href="lessons.html" class="card" style="text-align:center;text-decoration:none;">
+        <div class="card-icon" style="margin:0 auto 1rem;"><i class="fas fa-book-open"></i></div>
+        <h3>Lessons</h3>
+        <p style="font-size:.85rem;">Browse all learning resources</p>
+      </a>
+      <a href="projects.html" class="card" style="text-align:center;text-decoration:none;">
+        <div class="card-icon" style="margin:0 auto 1rem;background:linear-gradient(135deg,#2d7a4f,#38a169)"><i class="fas fa-rocket"></i></div>
+        <h3>Projects</h3>
+        <p style="font-size:.85rem;">View student projects</p>
+      </a>
+      <a href="events.html" class="card" style="text-align:center;text-decoration:none;">
+        <div class="card-icon" style="margin:0 auto 1rem;background:linear-gradient(135deg,#d69e2e,#f0b429)"><i class="fas fa-calendar-alt"></i></div>
+        <h3>Events</h3>
+        <p style="font-size:.85rem;">Upcoming workshops & events</p>
+      </a>
+      <a href="gallery.html" class="card" style="text-align:center;text-decoration:none;">
+        <div class="card-icon" style="margin:0 auto 1rem;background:linear-gradient(135deg,#d53f8c,#ed64a6)"><i class="fas fa-images"></i></div>
+        <h3>Gallery</h3>
+        <p style="font-size:.85rem;">Club photo gallery</p>
+      </a>
+    </div>
+
+    <!-- Membership info -->
+    <div class="grid grid-2 mt-3" style="align-items:start;">
+      <div class="card">
+        <h3 style="margin-bottom:1rem;"><i class="fas fa-id-card text-blue"></i> Member Information</h3>
+        <div style="display:flex;flex-direction:column;gap:.65rem;">
+          <div class="flex flex-between" style="font-size:.9rem;padding:.5rem 0;border-bottom:1px solid var(--border);">
+            <span style="color:var(--text-sub);">Name</span>
+            <strong id="infoDashName">—</strong>
+          </div>
+          <div class="flex flex-between" style="font-size:.9rem;padding:.5rem 0;border-bottom:1px solid var(--border);">
+            <span style="color:var(--text-sub);">Email</span>
+            <strong id="infoDashEmail" style="font-size:.85rem;">—</strong>
+          </div>
+          <div class="flex flex-between" style="font-size:.9rem;padding:.5rem 0;border-bottom:1px solid var(--border);">
+            <span style="color:var(--text-sub);">Member Since</span>
+            <strong id="infoDashJoined">—</strong>
+          </div>
+          <div class="flex flex-between" style="font-size:.9rem;padding:.5rem 0;">
+            <span style="color:var(--text-sub);">Status</span>
+            <span class="badge badge-green"><i class="fas fa-check-circle"></i> Active Member</span>
+          </div>
+        </div>
+      </div>
+      <div class="card">
+        <h3 style="margin-bottom:1rem;"><i class="fas fa-bell text-gold"></i> Club Announcements</h3>
+        <div style="display:flex;flex-direction:column;gap:.85rem;">
+          <div style="padding:.75rem;background:var(--surface-2);border-radius:10px;">
+            <strong style="font-size:.88rem;">📢 ICT Exhibition — 30 June</strong>
+            <p style="font-size:.82rem;color:var(--text-sub);margin-top:.25rem;">Prepare and submit your project by 25 June. All members are encouraged to participate.</p>
+          </div>
+          <div style="padding:.75rem;background:var(--surface-2);border-radius:10px;">
+            <strong style="font-size:.88rem;">🐍 Python Bootcamp</strong>
+            <p style="font-size:.82rem;color:var(--text-sub);margin-top:.25rem;">Saturday sessions begin 15 June. Registration closes soon — confirm your slot via WhatsApp.</p>
+          </div>
+          <div style="padding:.75rem;background:var(--surface-2);border-radius:10px;">
+            <strong style="font-size:.88rem;">📅 Monthly Meeting</strong>
+            <p style="font-size:.82rem;color:var(--text-sub);margin-top:.25rem;">Next meeting: 5 July, 1:00 PM in the Computer Lab. Attendance mandatory for executives.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <div class="container">
+    <div class="footer-bottom" style="border-top:none;padding-top:.5rem;">
+      <p>© 2026 ICT Club Uganda. All Rights Reserved.</p>
+      <p>Built with ❤️ by ICT Club Members</p>
+    </div>
+  </div>
+</footer>
+
+<button id="scrollTopBtn" aria-label="Scroll to top"><i class="fas fa-chevron-up"></i></button>
+
+<script src="js/script.js"></script>
+<script type="module">
+  import {
+    auth, db, ref, set,
+    signInWithEmailAndPassword,
+    createUserWithEmailAndPassword,
+    signOut, onAuthStateChanged,
+    updateProfile, sendPasswordResetEmail
+  } from './js/firebase.js';
+
+  const authView  = document.getElementById('authView');
+  const dashView  = document.getElementById('dashView');
+  const alertEl   = document.getElementById('authAlert');
+
+  function setAlert(msg, type='error'){
+    alertEl.innerHTML=`<div class="alert alert-${type}"><i class="fas fa-${type==='error'?'exclamation-circle':'check-circle'}"></i> ${msg}</div>`;
+  }
+  function clearAlert(){ alertEl.innerHTML=''; }
+
+  window.switchTab = function(tab){
+    const isLogin = tab==='login';
+    document.getElementById('loginForm').style.display    = isLogin?'block':'none';
+    document.getElementById('registerForm').style.display = tab==='register'?'block':'none';
+    document.getElementById('resetForm').style.display    = tab==='reset'?'block':'none';
+    document.getElementById('tabLogin').classList.toggle('active', isLogin);
+    document.getElementById('tabRegister').classList.toggle('active', tab==='register');
+    clearAlert();
+  };
+
+  window.showReset = function(){ switchTab('reset'); };
+
+  window.togglePwd = function(id, btn){
+    const input = document.getElementById(id);
+    const isText = input.type==='text';
+    input.type = isText?'password':'text';
+    btn.innerHTML = `<i class="fas fa-eye${isText?'':'-slash'}"></i>`;
+  };
+
+  window.doLogin = async function(){
+    const email = document.getElementById('loginEmail').value.trim();
+    const pwd   = document.getElementById('loginPassword').value;
+    if(!email||!pwd){ setAlert('Please enter your email and password.'); return; }
+    clearAlert();
+    try{
+      await signInWithEmailAndPassword(auth, email, pwd);
+    } catch(err){
+      const msgs = {
+        'auth/user-not-found':'No account found with this email.',
+        'auth/wrong-password':'Incorrect password.',
+        'auth/invalid-email':'Invalid email address.',
+        'auth/too-many-requests':'Too many attempts. Please wait and try again.',
+        'auth/invalid-credential':'Invalid email or password.'
+      };
+      setAlert(msgs[err.code]||'Sign in failed. Please check your credentials.');
+    }
+  };
+
+  window.doRegister = async function(){
+    const first   = document.getElementById('regFirstName').value.trim();
+    const last    = document.getElementById('regLastName').value.trim();
+    const email   = document.getElementById('regEmail').value.trim();
+    const cls     = document.getElementById('regClass').value;
+    const pwd     = document.getElementById('regPassword').value;
+    const confirm = document.getElementById('regConfirm').value;
+    const terms   = document.getElementById('regTerms').checked;
+
+    if(!first||!last||!email||!cls||!pwd||!confirm){ setAlert('Please fill in all fields.'); return; }
+    if(pwd!==confirm){ setAlert('Passwords do not match.'); return; }
+    if(pwd.length<6){ setAlert('Password must be at least 6 characters.'); return; }
+    if(!terms){ setAlert('Please agree to the terms and code of conduct.'); return; }
+
+    clearAlert();
+    try{
+      const cred = await createUserWithEmailAndPassword(auth, email, pwd);
+      await updateProfile(cred.user, { displayName: `${first} ${last}` });
+      await set(ref(db, `users/${cred.user.uid}`), {
+        firstName:first, lastName:last, email, cls,
+        joinedAt: Date.now(), role:'member'
+      });
+      showToast('Account created! Welcome to ICT Club Uganda 🎉','success');
+    } catch(err){
+      const msgs = {
+        'auth/email-already-in-use':'An account with this email already exists.',
+        'auth/invalid-email':'Invalid email address.',
+        'auth/weak-password':'Password is too weak. Use at least 6 characters.'
+      };
+      setAlert(msgs[err.code]||'Registration failed. Please try again.');
+    }
+  };
+
+  window.doReset = async function(){
+    const email = document.getElementById('resetEmail').value.trim();
+    if(!email){ setAlert('Please enter your email address.'); return; }
+    try{
+      await sendPasswordResetEmail(auth, email);
+      setAlert('Password reset email sent! Check your inbox.','success');
+    } catch(err){
+      setAlert('Could not send reset email. Check the address and try again.');
+    }
+  };
+
+  window.doLogout = async function(){
+    await signOut(auth);
+    showToast('Signed out successfully.','info');
+  };
+
+  onAuthStateChanged(auth, (user)=>{
+    // Hide the loading screen as soon as Firebase responds
+    const loader = document.getElementById('portalLoader');
+    if(loader) loader.style.display = 'none';
+
+    if(user){
+      authView.style.display='none';
+      dashView.style.display='block';
+      const name = user.displayName || user.email.split('@')[0];
+      document.getElementById('dashName').textContent  = `Welcome back, ${name}! 👋`;
+      document.getElementById('dashEmail').textContent = user.email;
+      document.getElementById('infoDashName').textContent   = user.displayName || '—';
+      document.getElementById('infoDashEmail').textContent  = user.email;
+      document.getElementById('infoDashJoined').textContent = formatDate(user.metadata.creationTime ? new Date(user.metadata.creationTime).getTime() : Date.now());
+    } else {
+      authView.style.display='flex';
+      dashView.style.display='none';
+    }
+  });
+
+  // Safety fallback — if Firebase takes more than 6 seconds, show login anyway
+  setTimeout(()=>{
+    const loader = document.getElementById('portalLoader');
+    if(loader && loader.style.display !== 'none'){
+      loader.style.display = 'none';
+      authView.style.display = 'flex';
+      dashView.style.display = 'none';
+    }
+  }, 6000);
+</script>
+</body>
+</html>

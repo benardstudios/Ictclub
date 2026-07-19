@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ICT Club Uganda | Lessons</title>
+  <meta name="description" content="Browse ICT Club Uganda's programming, networking, cybersecurity and design lessons.">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/style-patch.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+  <link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet">
+</head>
+<body>
+<!-- Page Loading Overlay -->
+<div class="page-loading" id="pageLoader">
+  <div class="page-loading-logo">ICT Club</div>
+  <div class="spinner"></div>
+  <span>Loading…</span>
+</div>
+<script>
+  window.addEventListener('load', function() {
+    var loader = document.getElementById('pageLoader');
+    if (loader) {
+      loader.classList.add('fade-out');
+      setTimeout(function(){ loader.style.display = 'none'; }, 450);
+    }
+  });
+</script>
+
+<div id="progress-bar"></div>
+
+<nav>
+  <div class="logo">
+    <img src="assets/logo.png" alt="ICT Club Uganda Logo" onerror="this.style.display='none'">
+    <div class="school-logo-placeholder" title="Buhobe Secondary School">BSS</div>
+  <div class="nav-links" id="navLinks">
+    <a href="index.html">Home</a>
+    <a href="about.html">About</a>
+    <a href="lessons.html">Lessons</a>
+    <a href="projects.html">Projects</a>
+    <a href="news.html">News</a>
+    <a href="events.html">Events</a>
+    <a href="gallery.html">Gallery</a>
+    <a href="feedback.html">Feedback</a>
+    <a href="portal.html">Portal</a>
+  </div>
+  <div class="nav-actions">
+    <button id="modeBtn" class="mode-btn">🌙 Dark</button>
+  </div>
+  <button class="hamburger" id="hamburger"><i class="fas fa-bars"></i></button>
+</nav>
+
+<!-- HERO -->
+<section class="hero" style="min-height:55vh;">
+  <div class="hero-badge" data-aos="fade-down"><i class="fas fa-book-open"></i> Learn & Grow</div>
+  <h1 data-aos="zoom-in">Club <span>Lessons</span></h1>
+  <p data-aos="fade-up">Structured learning resources across programming, networking, cybersecurity, design and more.</p>
+</section>
+
+<!-- LESSONS SECTION -->
+<section class="section">
+  <div class="container">
+
+    <!-- Search & Filter Bar -->
+    <div class="flex flex-between flex-wrap gap-2 mb-3" data-aos="fade-up">
+      <div class="search-bar" style="max-width:380px; flex:1;">
+        <input type="text" id="lessonSearch" placeholder="Search lessons…">
+        <button class="btn btn-primary btn-sm" onclick="searchLessons()">
+          <i class="fas fa-search"></i>
+        </button>
+      </div>
+      <div class="tab-bar" id="categoryTabs">
+        <button class="tab-btn active" data-cat="all">All</button>
+        <button class="tab-btn" data-cat="programming">Programming</button>
+        <button class="tab-btn" data-cat="web">Web Dev</button>
+        <button class="tab-btn" data-cat="networking">Networking</button>
+        <button class="tab-btn" data-cat="cybersecurity">Cybersecurity</button>
+        <button class="tab-btn" data-cat="design">Design</button>
+      </div>
+    </div>
+
+    <!-- Lessons Grid -->
+    <div class="grid grid-auto" id="lessonsGrid">
+      <div class="loading-wrap">
+        <div class="spinner"></div>
+        <p>Loading lessons…</p>
+      </div>
+    </div>
+
+    <!-- Fallback static lessons shown while Firebase loads -->
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="logo"><img src="assets/logo.png" alt="ICT Club" onerror="this.style.display='none'">
+    <div class="school-logo-placeholder" title="Buhobe Secondary School">BSS</div>
+    <div class="school-logo-placeholder" title="Buhobe Secondary School">BSS</div> ICT Club Uganda</div>
+        <p>Empowering the next generation through technology education.</p>
+        <div class="footer-social">
+          <a href="#"><i class="fab fa-facebook-f"></i></a>
+          <a href="#"><i class="fab fa-instagram"></i></a>
+          <a href="#"><i class="fab fa-youtube"></i></a>
+          <a href="#"><i class="fab fa-twitter"></i></a>
+        </div>
+      </div>
+      <div>
+        <h4>Quick Links</h4>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="about.html">About</a></li>
+          <li><a href="lessons.html">Lessons</a></li>
+          <li><a href="projects.html">Projects</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Resources</h4>
+        <ul>
+          <li><a href="news.html">News</a></li>
+          <li><a href="events.html">Events</a></li>
+          <li><a href="portal.html">Portal</a></li>
+          <li><a href="admin.html">Admin</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Contact</h4>
+        <ul>
+          <li><a href="mailto:info@ictclubuganda.org"><i class="fas fa-envelope"></i> info@ictclubuganda.org</a></li>
+          <li><a href="#"><i class="fas fa-map-marker-alt"></i> Uganda</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2026 ICT Club Uganda. All Rights Reserved.</p>
+      <p>Built with ❤️ by ICT Club Members</p>
+    </div>
+  </div>
+</footer>
+
+<button id="scrollTopBtn" aria-label="Scroll to top"><i class="fas fa-chevron-up"></i></button>
+
+<!-- Lesson Detail Modal -->
+<div class="modal-overlay" id="lessonModal">
+  <div class="modal">
+    <div class="modal-header">
+      <h3 id="modalLessonTitle">Lesson</h3>
+      <button class="modal-close" data-modal-close="lessonModal"><i class="fas fa-times"></i></button>
+    </div>
+    <div id="modalLessonBody"></div>
+  </div>
+</div>
+
+<script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+<script src="js/script.js"></script>
+<script type="module">
+  import { db, ref, onValue } from './js/firebase.js';
+
+  const grid    = document.getElementById('lessonsGrid');
+  const search  = document.getElementById('lessonSearch');
+  const catBtns = document.querySelectorAll('[data-cat]');
+
+  let allLessons   = [];
+  let activeFilter = 'all';
+
+  // ---- Category icons ----
+  const catConfig = {
+    programming:  { icon: 'fa-code',         color: 'linear-gradient(135deg,#1a3a8f,#2255cc)',  label: 'Programming' },
+    web:          { icon: 'fa-globe',         color: 'linear-gradient(135deg,#2d7a4f,#38a169)',  label: 'Web Dev' },
+    networking:   { icon: 'fa-network-wired', color: 'linear-gradient(135deg,#b7410e,#e05c1a)',  label: 'Networking' },
+    cybersecurity:{ icon: 'fa-shield-alt',    color: 'linear-gradient(135deg,#553c9a,#805ad5)',  label: 'Cybersecurity' },
+    design:       { icon: 'fa-paint-brush',   color: 'linear-gradient(135deg,#d53f8c,#ed64a6)',  label: 'Design' },
+    other:        { icon: 'fa-book',          color: 'linear-gradient(135deg,#d69e2e,#f0b429)',  label: 'General' }
+  };
+
+  // ---- Difficulty badge ----
+  const diffBadge = {
+    beginner:     'badge-green',
+    intermediate: 'badge-gold',
+    advanced:     'badge-red'
+  };
+
+  // ---- Render lessons ----
+  function renderLessons(lessons) {
+    if (!lessons.length) {
+      grid.innerHTML = `
+        <div class="empty-state" style="grid-column:1/-1;">
+          <i class="fas fa-book-open"></i>
+          <h4>No lessons found</h4>
+          <p>Try a different search or category filter.</p>
+        </div>`;
+      return;
+    }
+
+    grid.innerHTML = lessons.map((l, i) => {
+      const cat    = catConfig[l.category] || catConfig.other;
+      const diff   = l.difficulty || 'beginner';
+      const badge  = diffBadge[diff] || 'badge-blue';
+
+      return `
+        <div class="card lesson-card" data-aos="fade-up" data-aos-delay="${(i % 6) * 60}"
+             style="cursor:pointer;" onclick="openLesson('${l.id}')">
+          <div class="card-icon" style="background:${cat.color}"><i class="fas ${cat.icon}"></i></div>
+          <div class="flex flex-between mb-2" style="gap:.5rem; flex-wrap:wrap;">
+            <span class="badge badge-blue" style="font-size:.7rem;">${cat.label}</span>
+            <span class="badge ${badge}" style="font-size:.7rem; text-transform:capitalize;">${diff}</span>
+          </div>
+          <h3>${escHtml(l.title)}</h3>
+          <p>${escHtml((l.description || '').substring(0, 120))}${l.description?.length > 120 ? '…' : ''}</p>
+          <div class="flex gap-1 mt-3" style="flex-wrap:wrap;">
+            ${(l.duration ? `<span class="tech-tag"><i class="fas fa-clock"></i> ${escHtml(l.duration)}</span>` : '')}
+            ${(l.author   ? `<span class="tech-tag"><i class="fas fa-user"></i> ${escHtml(l.author)}</span>`  : '')}
+          </div>
+        </div>`;
+    }).join('');
+
+    if (typeof AOS !== 'undefined') AOS.refresh();
+  }
+
+  // ---- Filter & search ----
+  function applyFilters() {
+    const q = (search.value || '').toLowerCase();
+    const filtered = allLessons.filter(l => {
+      const matchCat  = activeFilter === 'all' || l.category === activeFilter;
+      const matchText = !q || l.title?.toLowerCase().includes(q) || l.description?.toLowerCase().includes(q);
+      return matchCat && matchText;
+    });
+    renderLessons(filtered);
+  }
+
+  // Category buttons
+  catBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      catBtns.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      activeFilter = btn.dataset.cat;
+      applyFilters();
+    });
+  });
+
+  // Search
+  search.addEventListener('input', applyFilters);
+
+  window.searchLessons = applyFilters;
+
+  // ---- Open lesson modal ----
+  window.openLesson = function(id) {
+    const l = allLessons.find(x => x.id === id);
+    if (!l) return;
+    const cat = catConfig[l.category] || catConfig.other;
+    document.getElementById('modalLessonTitle').textContent = l.title;
+    document.getElementById('modalLessonBody').innerHTML = `
+      <div class="flex gap-2 flex-wrap mb-3">
+        <span class="badge badge-blue">${cat.label}</span>
+        <span class="badge ${diffBadge[l.difficulty] || 'badge-blue'}" style="text-transform:capitalize;">${l.difficulty || 'Beginner'}</span>
+        ${l.duration ? `<span class="badge badge-green"><i class="fas fa-clock"></i> ${escHtml(l.duration)}</span>` : ''}
+      </div>
+      <p style="color:var(--text-sub); margin-bottom:1.25rem; line-height:1.75;">${escHtml(l.description || '')}</p>
+      ${l.content ? `<div style="background:var(--surface-2);border-radius:10px;padding:1.25rem;margin-bottom:1rem;font-size:.9rem;line-height:1.8;color:var(--text);">${escHtml(l.content)}</div>` : ''}
+      ${l.resources ? `<h4 style="margin-bottom:.5rem;font-size:.9rem;">Resources</h4><p style="color:var(--text-sub);font-size:.88rem;">${escHtml(l.resources)}</p>` : ''}
+      <div class="mt-3" style="font-size:.8rem;color:var(--text-light);">Added: ${formatDate(l.createdAt)}</div>`;
+    openModal('lessonModal');
+  };
+
+  // ---- Escape HTML ----
+  function escHtml(s) {
+    return String(s || '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+  }
+
+  // ---- Load fallback data if Firebase not configured ----
+  const fallbackLessons = [
+    { id:'1', title:'Introduction to HTML', category:'web', difficulty:'beginner', description:'Learn the building blocks of web pages. Understand tags, elements, attributes and document structure.', duration:'2 hours', author:'Club Patron', createdAt: Date.now() },
+    { id:'2', title:'CSS Styling & Layouts', category:'web', difficulty:'beginner', description:'Style your web pages with CSS. Learn flexbox, grid, colours, typography and responsive design.', duration:'3 hours', author:'Club Patron', createdAt: Date.now() },
+    { id:'3', title:'JavaScript Basics', category:'programming', difficulty:'beginner', description:'Introduction to JavaScript programming. Variables, functions, DOM manipulation and events.', duration:'4 hours', author:'Club Patron', createdAt: Date.now() },
+    { id:'4', title:'Python for Beginners', category:'programming', difficulty:'beginner', description:'Start programming with Python. Learn syntax, data types, loops, functions and file handling.', duration:'5 hours', author:'Club Patron', createdAt: Date.now() },
+    { id:'5', title:'Network Fundamentals', category:'networking', difficulty:'intermediate', description:'Understand how computer networks work. IP addresses, protocols, routers and network topologies.', duration:'3 hours', author:'Club Patron', createdAt: Date.now() },
+    { id:'6', title:'Cybersecurity Basics', category:'cybersecurity', difficulty:'beginner', description:'Learn to protect digital systems. Passwords, phishing, malware, and online safety best practices.', duration:'2 hours', author:'Club Patron', createdAt: Date.now() },
+    { id:'7', title:'Adobe Photoshop Intro', category:'design', difficulty:'beginner', description:'Introduction to graphic design using Photoshop. Layers, tools, photo editing and typography.', duration:'3 hours', author:'Club Patron', createdAt: Date.now() },
+    { id:'8', title:'Arduino Programming', category:'programming', difficulty:'intermediate', description:'Program Arduino microcontrollers. LED control, sensors, motors and IoT fundamentals.', duration:'4 hours', author:'Club Patron', createdAt: Date.now() },
+    { id:'9', title:'Database Design & SQL', category:'programming', difficulty:'intermediate', description:'Design databases and write SQL queries. Tables, relationships, CRUD and data modelling.', duration:'4 hours', author:'Club Patron', createdAt: Date.now() },
+  ];
+
+  // ---- Load from Firebase ----
+  try {
+    const lessonsRef = ref(db, 'lessons');
+    onValue(lessonsRef, (snapshot) => {
+      const data = snapshot.val();
+      if (data) {
+        allLessons = Object.entries(data).map(([k, v]) => ({ ...v, id: k }))
+          .sort((a, b) => (b.createdAt || 0) - (a.createdAt || 0));
+      } else {
+        allLessons = fallbackLessons;
+      }
+      applyFilters();
+    }, (err) => {
+      console.warn('Firebase error, using fallback:', err);
+      allLessons = fallbackLessons;
+      applyFilters();
+    });
+  } catch(e) {
+    // Firebase not configured — use static data
+    allLessons = fallbackLessons;
+    applyFilters();
+  }
+</script>
+</body>
+</html>

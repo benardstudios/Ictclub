@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ICT Club Uganda | News</title>
+  <meta name="description" content="Latest news, announcements and updates from ICT Club Uganda.">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/style-patch.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+  <link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet">
+</head>
+<body>
+<!-- Page Loading Overlay -->
+<div class="page-loading" id="pageLoader">
+  <div class="page-loading-logo">ICT Club</div>
+  <div class="spinner"></div>
+  <span>Loading…</span>
+</div>
+<script>
+  window.addEventListener('load', function() {
+    var loader = document.getElementById('pageLoader');
+    if (loader) {
+      loader.classList.add('fade-out');
+      setTimeout(function(){ loader.style.display = 'none'; }, 450);
+    }
+  });
+</script>
+
+<div id="progress-bar"></div>
+
+<nav>
+  <div class="logo">
+    <img src="assets/logo.png" alt="ICT Club Uganda Logo" onerror="this.style.display='none'">
+    <div class="school-logo-placeholder" title="Buhobe Secondary School">BSS</div>
+  <div class="nav-links" id="navLinks">
+    <a href="index.html">Home</a>
+    <a href="about.html">About</a>
+    <a href="lessons.html">Lessons</a>
+    <a href="projects.html">Projects</a>
+    <a href="news.html">News</a>
+    <a href="events.html">Events</a>
+    <a href="gallery.html">Gallery</a>
+    <a href="feedback.html">Feedback</a>
+    <a href="portal.html">Portal</a>
+  </div>
+  <div class="nav-actions">
+    <button id="modeBtn" class="mode-btn">🌙 Dark</button>
+  </div>
+  <button class="hamburger" id="hamburger"><i class="fas fa-bars"></i></button>
+</nav>
+
+<!-- HERO -->
+<section class="hero" style="min-height:50vh;">
+  <div class="hero-badge" data-aos="fade-down"><i class="fas fa-newspaper"></i> Stay Updated</div>
+  <h1 data-aos="zoom-in">Club <span>News</span></h1>
+  <p data-aos="fade-up">Announcements, achievements and updates from the ICT Club Uganda community.</p>
+</section>
+
+<!-- NEWS SECTION -->
+<section class="section">
+  <div class="container">
+
+    <div class="flex flex-between flex-wrap gap-2 mb-3" data-aos="fade-up">
+      <div class="search-bar" style="max-width:360px;flex:1;">
+        <input type="text" id="newsSearch" placeholder="Search news…">
+        <button class="btn btn-primary btn-sm"><i class="fas fa-search"></i></button>
+      </div>
+      <div class="tab-bar">
+        <button class="tab-btn active" data-ntag="all">All</button>
+        <button class="tab-btn" data-ntag="announcement">Announcements</button>
+        <button class="tab-btn" data-ntag="achievement">Achievements</button>
+        <button class="tab-btn" data-ntag="workshop">Workshops</button>
+        <button class="tab-btn" data-ntag="general">General</button>
+      </div>
+    </div>
+
+    <div class="grid grid-auto" id="newsGrid">
+      <div class="loading-wrap" style="grid-column:1/-1;">
+        <div class="spinner"></div>
+        <p>Loading news…</p>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- NEWS DETAIL MODAL -->
+<div class="modal-overlay" id="newsModal">
+  <div class="modal">
+    <div class="modal-header">
+      <h3 id="newsModalTitle">News Article</h3>
+      <button class="modal-close" data-modal-close="newsModal"><i class="fas fa-times"></i></button>
+    </div>
+    <div id="newsModalBody"></div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="logo"><img src="assets/logo.png" alt="ICT Club" onerror="this.style.display='none'">
+    <div class="school-logo-placeholder" title="Buhobe Secondary School">BSS</div>
+    <div class="school-logo-placeholder" title="Buhobe Secondary School">BSS</div> ICT Club Uganda</div>
+        <p>Empowering the next generation through technology education.</p>
+        <div class="footer-social">
+          <a href="#"><i class="fab fa-facebook-f"></i></a>
+          <a href="#"><i class="fab fa-instagram"></i></a>
+          <a href="#"><i class="fab fa-youtube"></i></a>
+          <a href="#"><i class="fab fa-twitter"></i></a>
+        </div>
+      </div>
+      <div>
+        <h4>Quick Links</h4>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="about.html">About</a></li>
+          <li><a href="news.html">News</a></li>
+          <li><a href="events.html">Events</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Resources</h4>
+        <ul>
+          <li><a href="lessons.html">Lessons</a></li>
+          <li><a href="projects.html">Projects</a></li>
+          <li><a href="portal.html">Portal</a></li>
+          <li><a href="feedback.html">Feedback</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Contact</h4>
+        <ul>
+          <li><a href="mailto:info@ictclubuganda.org"><i class="fas fa-envelope"></i> info@ictclubuganda.org</a></li>
+          <li><a href="#"><i class="fas fa-map-marker-alt"></i> Uganda</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2026 ICT Club Uganda. All Rights Reserved.</p>
+      <p>Built with ❤️ by ICT Club Members</p>
+    </div>
+  </div>
+</footer>
+
+<button id="scrollTopBtn" aria-label="Scroll to top"><i class="fas fa-chevron-up"></i></button>
+
+<script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+<script src="js/script.js"></script>
+<script type="module">
+  import { db, ref, onValue } from './js/firebase.js';
+
+  const grid    = document.getElementById('newsGrid');
+  const search  = document.getElementById('newsSearch');
+  const catBtns = document.querySelectorAll('[data-ntag]');
+
+  let allNews      = [];
+  let activeFilter = 'all';
+
+  const tagColors = {
+    announcement: 'badge-blue',
+    achievement:  'badge-gold',
+    workshop:     'badge-green',
+    general:      'badge-blue',
+  };
+
+  function escHtml(s) { return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+
+  function renderNews(items) {
+    if (!items.length) {
+      grid.innerHTML = `<div class="empty-state" style="grid-column:1/-1;"><i class="fas fa-newspaper"></i><h4>No news found</h4><p>Try a different filter.</p></div>`;
+      return;
+    }
+    grid.innerHTML = items.map((n, i) => `
+      <div class="card news-card" data-aos="fade-up" data-aos-delay="${(i%6)*60}" style="cursor:pointer;" onclick="openNews('${n.id}')">
+        <div class="card-meta">
+          <span class="tag" style="text-transform:capitalize;">${escHtml(n.tag||'General')}</span>
+          <span>${formatDateShort(n.createdAt)}</span>
+        </div>
+        <h3>${escHtml(n.title)}</h3>
+        <p>${escHtml((n.summary||n.content||'').substring(0,160))}${(n.summary||n.content||'').length>160?'…':''}</p>
+        <div class="flex gap-1 mt-3" style="align-items:center;">
+          ${n.author ? `<span style="font-size:.8rem;color:var(--text-light);"><i class="fas fa-user"></i> ${escHtml(n.author)}</span>` : ''}
+          <span style="margin-left:auto; font-size:.82rem; color:var(--blue-bright); font-weight:600;">Read more →</span>
+        </div>
+      </div>`
+    ).join('');
+    if (typeof AOS !== 'undefined') AOS.refresh();
+  }
+
+  function applyFilters() {
+    const q = (search.value||'').toLowerCase();
+    const filtered = allNews.filter(n => {
+      const matchTag  = activeFilter === 'all' || n.tag === activeFilter;
+      const matchText = !q || n.title?.toLowerCase().includes(q) || (n.content||n.summary||'').toLowerCase().includes(q);
+      return matchTag && matchText;
+    });
+    renderNews(filtered);
+  }
+
+  catBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      catBtns.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      activeFilter = btn.dataset.ntag;
+      applyFilters();
+    });
+  });
+
+  search.addEventListener('input', applyFilters);
+
+  window.openNews = function(id) {
+    const n = allNews.find(x => x.id === id);
+    if (!n) return;
+    document.getElementById('newsModalTitle').textContent = n.title;
+    document.getElementById('newsModalBody').innerHTML = `
+      <div class="flex gap-2 flex-wrap mb-3">
+        <span class="badge ${tagColors[n.tag]||'badge-blue'}" style="text-transform:capitalize;">${escHtml(n.tag||'General')}</span>
+        <span class="badge badge-green"><i class="fas fa-calendar"></i> ${formatDate(n.createdAt)}</span>
+        ${n.author ? `<span class="badge badge-gold"><i class="fas fa-user"></i> ${escHtml(n.author)}</span>` : ''}
+      </div>
+      <div style="color:var(--text);line-height:1.85;font-size:.95rem;">${escHtml(n.content||n.summary||'').replace(/\n/g,'<br>')}</div>`;
+    openModal('newsModal');
+  };
+
+  const fallbackNews = [
+    { id:'1', title:'New Robotics Equipment Arrives', tag:'announcement', author:'Club Patron', summary:'Modern robotics kits including Arduino Mega boards, servo motors and ultrasonic sensors have been delivered to the Innovation Lab. Members can now work on more advanced automation projects.', content:'Modern robotics kits including Arduino Mega boards, servo motors and ultrasonic sensors have been delivered to the Innovation Lab. Members can now work on more advanced automation projects. Sessions will begin next week — check the events page for schedules.', createdAt: Date.now()-86400000*2 },
+    { id:'2', title:'ICT Club Wins District Innovation Award', tag:'achievement', author:'Club President', summary:'Our club took first place in the 2026 District Technology Innovation Challenge. The winning project was our Smart Irrigation System that helps local farmers save water.', content:'Our club took first place in the 2026 District Technology Innovation Challenge. The winning project was our Smart Irrigation System that helps local farmers save water. The team behind the project will represent the district at the national competition in August.', createdAt: Date.now()-86400000*7 },
+    { id:'3', title:'Python Bootcamp Registration Open', tag:'workshop', author:'Club Secretary', summary:'All students are invited to register for the upcoming Python Programming Bootcamp running for 4 weeks. No prior experience required.', content:'All students are invited to register for the upcoming Python Programming Bootcamp running for 4 weeks every Saturday. No prior experience required. Participants will build a complete Python project by the end of the bootcamp. Registration closes 20th June.', createdAt: Date.now()-86400000*3 },
+    { id:'4', title:'Annual ICT Exhibition Preparations Begin', tag:'announcement', author:'Club Patron', summary:'Students are encouraged to start preparing their projects for the Annual ICT Exhibition scheduled for end of term.', content:'Students are encouraged to start preparing their projects for the Annual ICT Exhibition scheduled for end of term. This is a great opportunity to showcase work to teachers, parents and potential partners. All project ideas must be submitted to the secretary by 25th June.', createdAt: Date.now()-86400000*1 },
+    { id:'5', title:'New Web Development Track Launched', tag:'general', author:'Club President', summary:'We are excited to announce a new dedicated Web Development learning track with structured lessons from HTML basics to full-stack development.', content:'We are excited to announce a new dedicated Web Development learning track with structured lessons from HTML basics to full-stack development. The track is designed for both beginners and intermediate learners. Check the Lessons page for the full curriculum.', createdAt: Date.now()-86400000*10 },
+    { id:'6', title:'Financial Literacy Workshop Success', tag:'achievement', author:'Club Secretary', summary:'Over 80 students attended the joint ICT and Financial Literacy workshop last week, learning how digital tools can support entrepreneurship.', content:'Over 80 students attended the joint ICT and Financial Literacy workshop last week, learning how digital tools can support entrepreneurship and financial management. The event aligned with our club motto: "ICT Literate, Financially Stronger."', createdAt: Date.now()-86400000*14 },
+  ];
+
+  try {
+    const newsRef = ref(db, 'news');
+    onValue(newsRef, (snapshot) => {
+      const data = snapshot.val();
+      if (data) {
+        allNews = Object.entries(data).map(([k,v]) => ({...v, id:k})).sort((a,b)=>(b.createdAt||0)-(a.createdAt||0));
+      } else {
+        allNews = fallbackNews;
+      }
+      applyFilters();
+    }, () => { allNews = fallbackNews; applyFilters(); });
+  } catch(e) {
+    allNews = fallbackNews;
+    applyFilters();
+  }
+</script>
+</body>
+</html>

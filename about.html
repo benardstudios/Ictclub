@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ICT Club Uganda | About Us</title>
+  <meta name="description" content="Learn about ICT Club Uganda — our mission, vision, history and leadership team.">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/style-patch.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+  <link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet">
+</head>
+<body>
+<!-- Page Loading Overlay -->
+<div class="page-loading" id="pageLoader">
+  <div class="page-loading-logo">ICT Club</div>
+  <div class="spinner"></div>
+  <span>Loading…</span>
+</div>
+<script>
+  window.addEventListener('load', function() {
+    var loader = document.getElementById('pageLoader');
+    if (loader) {
+      loader.classList.add('fade-out');
+      setTimeout(function(){ loader.style.display = 'none'; }, 450);
+    }
+  });
+</script>
+
+<div id="progress-bar"></div>
+
+<nav>
+  <div class="logo">
+    <img src="assets/logo.png" alt="ICT Club Uganda Logo" onerror="this.style.display='none'">
+    <div class="school-logo-placeholder" title="Buhobe Secondary School">BSS</div>
+  <div class="nav-links" id="navLinks">
+    <a href="index.html">Home</a>
+    <a href="about.html">About</a>
+    <a href="lessons.html">Lessons</a>
+    <a href="projects.html">Projects</a>
+    <a href="news.html">News</a>
+    <a href="events.html">Events</a>
+    <a href="gallery.html">Gallery</a>
+    <a href="feedback.html">Feedback</a>
+    <a href="portal.html">Portal</a>
+  </div>
+  <div class="nav-actions">
+    <button id="modeBtn" class="mode-btn">🌙 Dark</button>
+  </div>
+  <button class="hamburger" id="hamburger"><i class="fas fa-bars"></i></button>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-badge" data-aos="fade-down"><i class="fas fa-info-circle"></i> Our Story</div>
+  <h1 data-aos="zoom-in">About <span>ICT Club Uganda</span></h1>
+  <p data-aos="fade-up">Inspiring innovation, creativity, leadership and technological excellence since 2026.</p>
+</section>
+
+<!-- WHO WE ARE -->
+<section class="section">
+  <div class="container">
+    <div class="grid grid-2" style="align-items:center; gap:3rem;">
+      <div data-aos="fade-right">
+        <span class="section-eyebrow">Who We Are</span>
+        <h2 class="section-title" style="text-align:left; margin-bottom:1rem;">A Community of Young Innovators</h2>
+        <p style="color:var(--text-sub); margin-bottom:1rem; line-height:1.8;">
+          ICT Club Uganda is a student-led technology community dedicated to helping learners acquire
+          practical digital skills, programming knowledge, robotics experience and innovative thinking.
+        </p>
+        <p style="color:var(--text-sub); line-height:1.8;">
+          Through workshops, projects, competitions and mentorship, members gain real-world experience
+          that prepares them for Uganda's growing digital economy and the global technology landscape.
+        </p>
+        <div class="flex gap-2 flex-wrap mt-3">
+          <span class="badge badge-blue"><i class="fas fa-users"></i> 250+ Members</span>
+          <span class="badge badge-green"><i class="fas fa-calendar"></i> Est. 2026</span>
+          <span class="badge badge-gold"><i class="fas fa-map-marker-alt"></i> Uganda</span>
+        </div>
+      </div>
+      <div data-aos="fade-left">
+        <div class="card" style="background: var(--grad-primary); color: #fff; border: none;">
+          <div style="text-align:center; padding: 1rem 0;">
+            <img src="assets/logo.png" alt="ICT Club Uganda" style="width:120px;height:120px;border-radius:50%;object-fit:contain;margin:0 auto 1rem;border:4px solid rgba(255,255,255,0.3);" onerror="this.style.display='none'">
+            <h2 style="font-family:'Syne',sans-serif; font-size:1.3rem; margin-bottom:0.4rem;">ICT Club Uganda</h2>
+            <p style="opacity:.85; font-size:.9rem;">"ICT Literate, Financially Stronger"</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MISSION & VISION -->
+<section class="section" style="background:var(--surface);">
+  <div class="container">
+    <div class="section-header" data-aos="fade-up">
+      <span class="section-eyebrow">Purpose</span>
+      <h2 class="section-title">Mission & Vision</h2>
+    </div>
+    <div class="grid grid-2">
+      <div class="card" data-aos="fade-right" style="border-left:4px solid var(--blue-bright);">
+        <div class="card-icon"><i class="fas fa-bullseye"></i></div>
+        <h3>Our Mission</h3>
+        <p>To empower students with technological skills, innovation and digital literacy through practical learning experiences that create real impact in our communities.</p>
+      </div>
+      <div class="card" data-aos="fade-left" style="border-left:4px solid var(--gold);">
+        <div class="card-icon" style="background:linear-gradient(135deg,#d69e2e,#f0b429)"><i class="fas fa-eye"></i></div>
+        <h3>Our Vision</h3>
+        <p>To become a leading school technology club in Uganda, producing future innovators, entrepreneurs and ICT professionals who transform the digital landscape.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CORE VALUES -->
+<section class="section">
+  <div class="container">
+    <div class="section-header" data-aos="fade-up">
+      <span class="section-eyebrow">What Drives Us</span>
+      <h2 class="section-title">Our Core Values</h2>
+    </div>
+    <div class="grid grid-4">
+      <div class="card" data-aos="fade-up" style="text-align:center;">
+        <div class="card-icon" style="margin:0 auto 1rem;">💡</div>
+        <h3>Innovation</h3>
+        <p>Encouraging creative thinking and problem-solving in everything we do.</p>
+      </div>
+      <div class="card" data-aos="fade-up" data-aos-delay="60" style="text-align:center;">
+        <div class="card-icon" style="margin:0 auto 1rem; background:linear-gradient(135deg,#2d7a4f,#38a169)">🤝</div>
+        <h3>Teamwork</h3>
+        <p>Collaborating to achieve common goals and support every member's growth.</p>
+      </div>
+      <div class="card" data-aos="fade-up" data-aos-delay="120" style="text-align:center;">
+        <div class="card-icon" style="margin:0 auto 1rem; background:linear-gradient(135deg,#553c9a,#805ad5)">📚</div>
+        <h3>Continuous Learning</h3>
+        <p>Embracing new knowledge and staying current with emerging technologies.</p>
+      </div>
+      <div class="card" data-aos="fade-up" data-aos-delay="180" style="text-align:center;">
+        <div class="card-icon" style="margin:0 auto 1rem; background:linear-gradient(135deg,#d69e2e,#f0b429)">🏆</div>
+        <h3>Excellence</h3>
+        <p>Striving for the highest quality in every project, task and interaction.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CLUB JOURNEY (TIMELINE) -->
+<section class="section" style="background:var(--surface);">
+  <div class="container">
+    <div class="section-header" data-aos="fade-up">
+      <span class="section-eyebrow">Our History</span>
+      <h2 class="section-title">The Club Journey</h2>
+      <p class="section-sub">From a small group to a thriving technology community.</p>
+    </div>
+    <div style="max-width:600px; margin:0 auto;">
+      <div class="timeline" data-aos="fade-up">
+        <div class="timeline-item">
+          <span class="tl-year">2023</span>
+          <h4>Foundation</h4>
+          <p>ICT Club officially launched with a founding group of enthusiastic students and a passionate patron teacher.</p>
+        </div>
+        <div class="timeline-item">
+          <span class="tl-year">2024</span>
+          <h4>First Programmes</h4>
+          <p>Introduced structured programming and robotics training sessions. First student websites developed.</p>
+        </div>
+        <div class="timeline-item">
+          <span class="tl-year">2025</span>
+          <h4>Competition Debut</h4>
+          <p>Participated in district ICT competitions and exhibitions. Launched cybersecurity and networking tracks.</p>
+        </div>
+        <div class="timeline-item">
+          <span class="tl-year">2026</span>
+          <h4>Expansion & Recognition</h4>
+          <p>Expanded to 250+ members. Launched this digital platform, won district innovation award, and established financial literacy integration.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- LEADERSHIP TEAM -->
+<section class="section">
+  <div class="container">
+    <div class="section-header" data-aos="fade-up">
+      <span class="section-eyebrow">The Team</span>
+      <h2 class="section-title">Club Leadership</h2>
+      <p class="section-sub">Dedicated individuals guiding the club's mission and activities.</p>
+    </div>
+    <div class="grid grid-4">
+      <div class="card team-card" data-aos="fade-up">
+        <div class="avatar"><i class="fas fa-chalkboard-teacher"></i></div>
+        <h4>Club Patron</h4>
+        <div class="role">Faculty Advisor</div>
+        <p style="font-size:.85rem;color:var(--text-sub);">Supervises and guides all club activities, providing mentorship and institutional support.</p>
+      </div>
+      <div class="card team-card" data-aos="fade-up" data-aos-delay="60">
+        <div class="avatar"><i class="fas fa-user-graduate"></i></div>
+        <h4>President</h4>
+        <div class="role">Club President</div>
+        <p style="font-size:.85rem;color:var(--text-sub);">Leads the club, coordinates activities and represents members in school governance.</p>
+      </div>
+      <div class="card team-card" data-aos="fade-up" data-aos-delay="120">
+        <div class="avatar" style="background:linear-gradient(135deg,#2d7a4f,#38a169)"><i class="fas fa-user-tie"></i></div>
+        <h4>Vice President</h4>
+        <div class="role">Deputy Leader</div>
+        <p style="font-size:.85rem;color:var(--text-sub);">Supports the president and coordinates department heads and project teams.</p>
+      </div>
+      <div class="card team-card" data-aos="fade-up" data-aos-delay="180">
+        <div class="avatar" style="background:linear-gradient(135deg,#553c9a,#805ad5)"><i class="fas fa-users-cog"></i></div>
+        <h4>Executive Committee</h4>
+        <div class="role">Management</div>
+        <p style="font-size:.85rem;color:var(--text-sub);">Secretary, Treasurer and Department Heads managing operations and events.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ACHIEVEMENTS -->
+<section class="section" style="background:var(--surface);">
+  <div class="container">
+    <div class="section-header" data-aos="fade-up">
+      <span class="section-eyebrow">Recognition</span>
+      <h2 class="section-title">Our Achievements</h2>
+    </div>
+    <div class="grid grid-3">
+      <div class="card" data-aos="fade-up">
+        <div class="card-icon"><i class="fas fa-medal"></i></div>
+        <h3>🏅 District Award</h3>
+        <p>Won the 2026 District Technology Innovation Challenge — first place in the coding category.</p>
+      </div>
+      <div class="card" data-aos="fade-up" data-aos-delay="60">
+        <div class="card-icon" style="background:linear-gradient(135deg,#2d7a4f,#38a169)"><i class="fas fa-robot"></i></div>
+        <h3>🤖 Robotics Exhibition</h3>
+        <p>Showcased 5 student-built robots and automated systems at the school science fair.</p>
+      </div>
+      <div class="card" data-aos="fade-up" data-aos-delay="120">
+        <div class="card-icon" style="background:linear-gradient(135deg,#553c9a,#805ad5)"><i class="fas fa-laptop-code"></i></div>
+        <h3>💻 Student Websites</h3>
+        <p>Developed and deployed 12 websites for school departments and local community organisations.</p>
+      </div>
+      <div class="card" data-aos="fade-up" data-aos-delay="180">
+        <div class="card-icon" style="background:linear-gradient(135deg,#d69e2e,#f0b429)"><i class="fas fa-certificate"></i></div>
+        <h3>📜 120 Certificates</h3>
+        <p>Issued digital certificates to members completing programming, design and networking tracks.</p>
+      </div>
+      <div class="card" data-aos="fade-up" data-aos-delay="240">
+        <div class="card-icon" style="background:linear-gradient(135deg,#d53f8c,#ed64a6)"><i class="fas fa-handshake"></i></div>
+        <h3>🤝 Partnerships</h3>
+        <p>Established partnerships with 3 technology companies providing mentorship and resources.</p>
+      </div>
+      <div class="card" data-aos="fade-up" data-aos-delay="300">
+        <div class="card-icon" style="background:linear-gradient(135deg,#b7410e,#e05c1a)"><i class="fas fa-newspaper"></i></div>
+        <h3>📰 Media Coverage</h3>
+        <p>Featured in local media for student innovation projects addressing community challenges.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WHY JOIN -->
+<section class="section">
+  <div class="container">
+    <div class="grid grid-2" style="align-items:center; gap:3rem;">
+      <div data-aos="fade-right">
+        <span class="section-eyebrow">Membership Benefits</span>
+        <h2 class="section-title" style="text-align:left; margin-bottom:1.5rem;">Why Join ICT Club Uganda?</h2>
+        <ul style="list-style:none; display:flex; flex-direction:column; gap:.85rem;">
+          <li class="flex gap-2" style="align-items:flex-start;">
+            <span class="badge badge-blue" style="flex-shrink:0; margin-top:.15rem;"><i class="fas fa-check"></i></span>
+            <span style="color:var(--text-sub);">Learn programming, web development, robotics and cybersecurity</span>
+          </li>
+          <li class="flex gap-2" style="align-items:flex-start;">
+            <span class="badge badge-green" style="flex-shrink:0; margin-top:.15rem;"><i class="fas fa-check"></i></span>
+            <span style="color:var(--text-sub);">Build real projects that solve community problems</span>
+          </li>
+          <li class="flex gap-2" style="align-items:flex-start;">
+            <span class="badge badge-gold" style="flex-shrink:0; margin-top:.15rem;"><i class="fas fa-check"></i></span>
+            <span style="color:var(--text-sub);">Gain leadership, teamwork and communication skills</span>
+          </li>
+          <li class="flex gap-2" style="align-items:flex-start;">
+            <span class="badge badge-blue" style="flex-shrink:0; margin-top:.15rem;"><i class="fas fa-check"></i></span>
+            <span style="color:var(--text-sub);">Attend workshops, competitions and technology exhibitions</span>
+          </li>
+          <li class="flex gap-2" style="align-items:flex-start;">
+            <span class="badge badge-green" style="flex-shrink:0; margin-top:.15rem;"><i class="fas fa-check"></i></span>
+            <span style="color:var(--text-sub);">Earn certificates and build a strong technology portfolio</span>
+          </li>
+          <li class="flex gap-2" style="align-items:flex-start;">
+            <span class="badge badge-gold" style="flex-shrink:0; margin-top:.15rem;"><i class="fas fa-check"></i></span>
+            <span style="color:var(--text-sub);">Connect with mentors from the technology industry</span>
+          </li>
+        </ul>
+      </div>
+      <div data-aos="fade-left">
+        <div class="cta-banner">
+          <h2>Ready to Start?</h2>
+          <p>Join ICT Club Uganda and develop the skills that will shape your future career and community impact.</p>
+          <a href="portal.html" class="btn btn-gold btn-lg">
+            <i class="fas fa-user-plus"></i> Join Now
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="logo"><img src="assets/logo.png" alt="ICT Club" onerror="this.style.display='none'">
+    <div class="school-logo-placeholder" title="Buhobe Secondary School">BSS</div>
+    <div class="school-logo-placeholder" title="Buhobe Secondary School">BSS</div> ICT Club Uganda</div>
+        <p>Building future innovators through technology, creativity and community impact.</p>
+        <div class="footer-social">
+          <a href="#"><i class="fab fa-facebook-f"></i></a>
+          <a href="#"><i class="fab fa-instagram"></i></a>
+          <a href="#"><i class="fab fa-youtube"></i></a>
+          <a href="#"><i class="fab fa-twitter"></i></a>
+          <a href="#"><i class="fab fa-whatsapp"></i></a>
+        </div>
+      </div>
+      <div>
+        <h4>Quick Links</h4>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="about.html">About Us</a></li>
+          <li><a href="lessons.html">Lessons</a></li>
+          <li><a href="projects.html">Projects</a></li>
+          <li><a href="gallery.html">Gallery</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Resources</h4>
+        <ul>
+          <li><a href="news.html">News</a></li>
+          <li><a href="events.html">Events</a></li>
+          <li><a href="feedback.html">Feedback</a></li>
+          <li><a href="portal.html">Student Portal</a></li>
+          <li><a href="admin.html">Admin</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Contact</h4>
+        <ul>
+          <li><a href="mailto:info@ictclubuganda.org"><i class="fas fa-envelope"></i> info@ictclubuganda.org</a></li>
+          <li><a href="#"><i class="fas fa-map-marker-alt"></i> Uganda</a></li>
+          <li><a href="#"><i class="fas fa-phone"></i> +256 700 000 000</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2026 ICT Club Uganda. All Rights Reserved.</p>
+      <p>Built with ❤️ by ICT Club Members</p>
+    </div>
+  </div>
+</footer>
+
+<button id="scrollTopBtn" aria-label="Scroll to top"><i class="fas fa-chevron-up"></i></button>
+
+<script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+<script src="js/script.js"></script>
+</body>
+</html>
